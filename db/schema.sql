@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS charater_db;
+CREATE DATABASE charater_db;
