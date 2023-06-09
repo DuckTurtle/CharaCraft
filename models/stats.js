@@ -2,21 +2,21 @@ const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection.js');
 
-class Spells extends Model {}
+class Stats extends Model {}
 
-Spells.init(
+Stats.init(
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
     },
-    spells_name: {
+    stat_name: {
       type: DataTypes.STRING,
     },
-    spells_dice: {
-        type: DataTypes.STRING,
-        allowNull: true,
+    stat_value: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       }
   },
   {
@@ -24,8 +24,8 @@ Spells.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'spell',
+    modelName: 'stats',
   }
 );
 
-module.exports = Spells;
+module.exports = Stats;

@@ -1,48 +1,80 @@
 const User = require('./user');
-const Charaters = require('./charater');
+const Characters = require('./character');
 const Charspell = require('./charspells');
+const CharOther = require('./charother');
 const CharWeapon = require('./charweapons');
+const CharStats = require('./charastats');
 const Spells = require('./spells');
 const Weapon = require('./weapon');
+const Other = require('./other');
+const Stats = require('./stats');
 
 
-User.hasMany(Charaters, {
+User.hasMany(Characters, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE'
   });
 
-  Charaters.belongsTo(User, {
+  Characters.belongsTo(User, {
     foreignKey: 'user_id'
   });
-  Charaters.belongsToMany(Spells,{
+  Characters.belongsToMany(Spells,{
     through: {
       model: Charspell,
       unique: false
     },
   });
-  Spells.belongsToMany(Charaters,{
+  Spells.belongsToMany(Characters,{
     through: {
       model: Charspell,
       unique: false
     },
   });
-  Weapon.belongsToMany(Charaters,{
+  Weapon.belongsToMany(Characters,{
     through: {
       model: CharWeapon,
       unique: false
     },
   });
-  Charaters.belongsToMany(Weapon,{
+  Characters.belongsToMany(Weapon,{
     through: {
       model: CharWeapon,
+      unique: false
+    },
+  });
+  Characters.belongsToMany(Other,{
+    through: {
+      model: CharOther,
+      unique: false
+    },
+  });
+  Other.belongsToMany(Characters,{
+    through: {
+      model: CharOther,
+      unique: false
+    },
+  });
+  Characters.belongsToMany(Stats,{
+    through: {
+      model: CharStats,
+      unique: false
+    },
+  });
+  Stats.belongsToMany(Characters,{
+    through: {
+      model: CharStats,
       unique: false
     },
   });
 
 module.exports = { 
     User,
-    Charaters,
+    Characters,
     Weapon,
     Spells,
     CharWeapon,
-    Charspell };
+    Charspell,
+    CharOther,
+    Other,
+    CharStats,
+    Stats };
