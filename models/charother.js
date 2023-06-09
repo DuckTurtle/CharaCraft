@@ -2,9 +2,9 @@ const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection');
 
-class CharWeapons extends Model { }
+class CharOther extends Model { }
 
-CharWeapons.init(
+CharOther.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -19,10 +19,10 @@ CharWeapons.init(
         unique: false
       }
     },
-    weapon_id: {
+    other_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'weapon',
+        model: 'other',
         key: 'id',
         unique: false
       }
@@ -33,8 +33,8 @@ CharWeapons.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'charweapon',
+    modelName: 'charother',
   }
 );
 
-module.exports = CharWeapons;
+module.exports = CharOther;

@@ -2,14 +2,15 @@ const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection');
 
-class CharWeapons extends Model { }
+class CharStats extends Model { }
 
-CharWeapons.init(
+CharStats.init(
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
+      autoIncrement: true
     },
     character_id: {
       type: DataTypes.INTEGER,
@@ -19,10 +20,10 @@ CharWeapons.init(
         unique: false
       }
     },
-    weapon_id: {
+    stat_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'weapon',
+        model: 'stats',
         key: 'id',
         unique: false
       }
@@ -33,8 +34,8 @@ CharWeapons.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'charweapon',
+    modelName: 'charstats',
   }
 );
 
-module.exports = CharWeapons;
+module.exports = CharStats;
