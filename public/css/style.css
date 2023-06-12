@@ -1,0 +1,29 @@
+*{
+font-family: 'Quintessential', cursive;
+}
+
+.cards {
+    margin-top: 30px;
+}
+
+.main {
+    background-image: url("../../images/dungeon.jpg") ;
+    background-size: cover;
+}
+
+.ranger {
+    height: 352px;
+}
+
+.cardEdit {
+    background-color: lightgrey;
+    opacity: 85%;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.right{
+    margin-right: 15px;
+}
