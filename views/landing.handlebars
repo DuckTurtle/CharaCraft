@@ -6,82 +6,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CharaCraft</title>
 
+     <!-- google Fonts imported -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap" rel="stylesheet">
+ 
+    <!-- css styling sheets -->
     <link rel="stylesheet" href="../public/css/jass.css">
     <link rel="stylesheet" href="../public/css/style.css">
 
+    <!-- bootstrap imported -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
   </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">CharaCraft</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<nav class="navbar navbar-expand-lg bg-body-tertiary p-0">
+  <div class="container-fluid bg-dark">
+    <a class="navbar-brand text-warning" href="#">CharaCraft</a>
+    <div class="navbar-collapse">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link text-warning" href="#">Characters</a>
         </li>
       </ul>
-      <button class="btn btn-outline-success">Characters</button>
-        <button class="btn btn-outline-success">Login</button>
+      <a class="btn btn-outline-warning right my-1 mt-" href="#" role="button">Sign Up</a>
+      <a class="btn btn-outline-warning my-1" href="#" role="button">Login</a>
     </div>
   </div>
 </nav>
 
-<div>
-    <div>
-        <h1>CharaCraft</h1>
+
+<div class="main">
+    <div class="pad-top bottom pt-1 d-flex justify-content-center flex-wrap">
+      <h1 class="text-warning">CharaCraft</h1>
     </div>
-    <div>
-      <h2>Login to view your Characters</h2>
-      <h2>or choose a prebuilt below!</h2>
+    <div class="d-flex justify-content-center flex-wrap text-center">
+      <h2 class="text-warning">Login to view your Characters <br> or choose a prebuilt below!</h2>
     </div>
-    <div>
+    <div class="d-flex flex-wrap justify-content-around cards">
       <!--card 1-->
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Fighter</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="card cardEdit border border-dark-subtle border-5" style="width: 18rem;">
+      <img src="../images/fighter.png" class="card-img-top" alt="...">
+      <div class="card-body text-center mb-2">
+        <h5 class="card-title underline"><strong>FIGHTER</strong></h5>
+        <p class="card-text">Skilled warrior adaptable to any combat situation, wielding a variety of weapons and fighting styles to deal devastating blows and endure battles with unmatched resilience.</p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Name: </li>
-        <li class="list-group-item">Race: </li>
+        <li class="list-group-item">Name: <strong>Wilber</strong></li>
+        <li class="list-group-item">Race: <strong>Human</strong></li>
       </ul>
-      <div class="card-body">
+      <div class="card-body text-center">
         <a href="#" class="btn btn-primary">View Character</a>
       </div>
     </div>
     <!--card 2-->
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Ranger</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="card cardEdit border border-dark-subtle border-5" style="width: 18rem;">
+      <img src="../images/ranger.png" class="card-img-top ranger" alt="...">
+      <div class="card-body text-center mb-4">
+        <h5 class="card-title underline"><strong>RANGER</strong></h5>
+        <p class="card-text">Nature-oriented hunter who is adept at long-range combat, tracking and survival skills, and the ability to tame and utilize animal companions.</p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Name: </li>
-        <li class="list-group-item">Race: </li>
+        <li class="list-group-item">Name: <strong>Corvin</strong></li>
+        <li class="list-group-item">Race: <strong>Elf</strong></li>
       </ul>
-      <div class="card-body">
+      <div class="card-body text-center">
         <a href="#" class="btn btn-primary">View Character</a>
       </div>
     </div>
     <!--card 3-->
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Wizard</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="card cardEdit border border-dark-subtle border-5" style="width: 18rem;">
+      <img src="../images/wizard.png" class="card-img-top" alt="...">
+      <div class="card-body text-center">
+        <h5 class="card-title underline"><strong>WIZARD</strong></h5>
+        <p class="card-text">Scholarly spellcaster with a vast repertoire of arcane magic, capable of manipulating spells from different schools and providing versatile magical solutions.</p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Name: </li>
-        <li class="list-group-item">Race: </li>
+        <li class="list-group-item">Name: <strong>Arkul</strong> </li>
+        <li class="list-group-item">Race: <strong>Dragonborn</strong></li>
       </ul>
-      <div class="card-body">
+      <div class="card-body text-center">
         <a href="#" class="btn btn-primary">View Character</a>
       </div>
     </div>
