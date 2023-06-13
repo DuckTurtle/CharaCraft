@@ -10,7 +10,6 @@ Weapon.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
     },
     weapon_name: {
       type: DataTypes.STRING,
