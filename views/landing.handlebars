@@ -29,8 +29,14 @@
           <a class="nav-link text-warning" href="#">Characters</a>
         </li>
       </ul>
+      {{#unless logged_in}}
       <a class="btn btn-outline-warning right my-1 mt-" href="#" role="button">Sign Up</a>
       <a class="btn btn-outline-warning my-1" href="#" role="button">Login</a>
+      {{/unless}}
+      {{#if logged_in}}
+      <a class="btn btn-outline-warning my-1" href="#" role="button">Log Out</a>
+      {{/if}}
+
     </div>
   </div>
 </nav>
@@ -40,55 +46,31 @@
     <div class="pad-top bottom pt-1 d-flex justify-content-center flex-wrap">
       <h1 class="text-warning">CharaCraft</h1>
     </div>
+    {{#unless logged_in}}
     <div class="d-flex justify-content-center flex-wrap text-center">
       <h2 class="text-warning">Login to view your Characters <br> or choose a prebuilt below!</h2>
     </div>
+    {{/unless}}
     <div class="d-flex flex-wrap justify-content-around cards">
+
+      {{#each }}
       <!--card 1-->
     <div class="card cardEdit border border-dark-subtle border-5" style="width: 18rem;">
-      <img src="../images/fighter.png" class="card-img-top" alt="...">
+      <img src={{class_image}} class="card-img-top" alt="...">
       <div class="card-body text-center mb-2">
-        <h5 class="card-title underline"><strong>FIGHTER</strong></h5>
-        <p class="card-text">Skilled warrior adaptable to any combat situation, wielding a variety of weapons and fighting styles to deal devastating blows and endure battles with unmatched resilience.</p>
+        <h5 class="card-title underline"><strong>{{class}}</strong></h5>
+        <p class="card-text">{{class_description}}Skilled warrior adaptable to any combat situation, wielding a variety of weapons and fighting styles to deal devastating blows and endure battles with unmatched resilience.</p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Name: <strong>Wilber</strong></li>
-        <li class="list-group-item">Race: <strong>Human</strong></li>
+        <li class="list-group-item">Name: <strong>{{character_name}}</strong></li>
+        <li class="list-group-item">Race: <strong>{{character_race}}</strong></li>
       </ul>
       <div class="card-body text-center">
         <a href="#" class="btn btn-primary">View Character</a>
       </div>
     </div>
+    {{/each}}
     <!--card 2-->
-    <div class="card cardEdit border border-dark-subtle border-5" style="width: 18rem;">
-      <img src="../images/ranger.png" class="card-img-top ranger" alt="...">
-      <div class="card-body text-center mb-4">
-        <h5 class="card-title underline"><strong>RANGER</strong></h5>
-        <p class="card-text">Nature-oriented hunter who is adept at long-range combat, tracking and survival skills, and the ability to tame and utilize animal companions.</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Name: <strong>Corvin</strong></li>
-        <li class="list-group-item">Race: <strong>Elf</strong></li>
-      </ul>
-      <div class="card-body text-center">
-        <a href="#" class="btn btn-primary">View Character</a>
-      </div>
-    </div>
-    <!--card 3-->
-    <div class="card cardEdit border border-dark-subtle border-5" style="width: 18rem;">
-      <img src="../images/wizard.png" class="card-img-top" alt="...">
-      <div class="card-body text-center">
-        <h5 class="card-title underline"><strong>WIZARD</strong></h5>
-        <p class="card-text">Scholarly spellcaster with a vast repertoire of arcane magic, capable of manipulating spells from different schools and providing versatile magical solutions.</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Name: <strong>Arkul</strong> </li>
-        <li class="list-group-item">Race: <strong>Dragonborn</strong></li>
-      </ul>
-      <div class="card-body text-center">
-        <a href="#" class="btn btn-primary">View Character</a>
-      </div>
-    </div>
 
   </div>
 
