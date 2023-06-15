@@ -2,6 +2,7 @@
 .CharacterGrid1, .CharacterGrid2{
     width: 500px;
     height: 300px;
+}
 *{
 font-family: 'Quintessential', cursive;
 }
@@ -30,4 +31,22 @@ font-family: 'Quintessential', cursive;
 
 .right{
     margin-right: 15px;
+}
+
+.statWidth {
+width: 100%;
+max-width: 100px;
+}
+
+.fullLength {
+    height: 100vh;
+}
+
+.gutterX {
+    --bs-gutter-x: 0;
+}
+
+.labelWidth {
+    min-width: max-content;
+    max-width: 100px;
 }
