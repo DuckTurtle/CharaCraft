@@ -1,6 +1,6 @@
 class API {
     async get(call){
-        var dndAPI = "https://www.dnd5eapi.co/api/" + call;
+        var dndAPI = "https://www.dnd5eapi.co" + call;
         let dataResults = fetch(dndAPI)
         .then(function(response){
             var results = response.json();
