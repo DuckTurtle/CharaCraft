@@ -1,97 +1,69 @@
 const List = require('./dndapi');
 const { v4: uuidv4 } = require('uuid')
 
-let weaponblock = $('#weaponBlock');
+let weaponBlock = $('#weapondiv');
+let spellBlock = $('#spelldiv');
 let newWeaponButton = $('#newWeapon');
 let savebnt =$('saveBnt');
 let shownText = $('.text');
 const charID = $('charname').val();
-const weapon = []
 
-const loadHistory = ()=> {
-    var oldWeapons = JSON.parse(localStorage.getItem(`weapons_${charID}`));
-
-    if (!oldWeapons){
-        return;
-    }
-    else{
-        for (var i=0;i<oldWeapons.length; i++){
-            //loads old list of weapons
-            weapon.push(oldNames[i]);
-        }
-}
-}
 const deleteItem = (e, array,) => {
     e.stopPropagation();
-
     const item = e.target;
-    const wName = JSON.parse(item.siblings('#sellection').html());
-    const itemid = JSON.parse(item.siblings('#sellection').getAttribute('id'));
     const formid = JSON.parse(item.parentElement.getAttribute('id'));
-    const itemval = JSON.parse(item.siblings('#sellection').val());
     formid.remove();
-   array.splice(array, {
-        id:itemid,
-        contnet: {
-        name:wName,
-        url:itemval,
-        }
-   })
   };
   
-const saveToLocal = (location, content) => {
-  localStorage.setItem(location, content);
-};
-  //creat save item
-  const saveWeapon = async (e) => {
+
+  //grabs item with event then collects its data and creates a weapon div.
+  const createWeaponBlock = async (e) =>{
     e.stopPropagation();
-
+    //deletes old form and relaces with info.
     const item = e.target;
-    const wName = JSON.parse(item.siblings('#sellection').html());
-    const itemid = JSON.parse(item.siblings('#sellection').getAttribute('id'));
+    const wName = JSON.parse(item.siblings('.sellection').val());
+    //api call to get info.
+    const itemInfo =  await List.getItem(wName);
     const formid = JSON.parse(item.parentElement.getAttribute('id'));
-    const itemval = JSON.parse(item.siblings('#sellection').val());
-    weapon.push({
-        id:itemid,
-        contnet: {
-        name:wName,
-        url:itemval,
-        }
-      })
     formid.remove();
-    saveToLocal(`weapons_${charID}`,weapon);
-    createWeaponBlock(itemval);
-  };
-
-  const createWeaponBlock = async (url) =>{
-     const itemInfo =  await List.getItem(url);
-     var div = $('<div>');
-     var title =$('<th>');
-     title.text(itemInfo.name);
-     title.attr('scope',"row");
-     var discription = $('<td>');
-     title.append(div);
-     discription.append(div);
-     div.append(weaponblock);
-     const delBtnEl = $('<i>');
+//creates the weapon block
+    var div = $('<tr>');
+    var title =$('<th>');
+    title.text(itemInfo.data.name);
+    title.attr('scope',"row");
+    if(itemInfo.data.damage.damage_dice===undefined){
+      div.attr("value", `${itemInfo.data.desc[1]} ${itemInfo.data.desc[2]}`);
+    } else {
+      div.attr("value", itemInfo.data.damage.damage_dice);
+    }
+    //on hover function that displays damage info
+    div.on("mouseover", () => {
+      var discription = $('<div>'); 
+      div.attr("class","hoverinfo");
+      discription.text(($(this).attr("value")));
+      discription.append(div);
+    })
+    title.append(div);
+    const delBtnEl = $('<i>');
+    //adds delete button.
     delBtnEl.attr("id", "delBnt");
     delBtnEl.attr('class',
       //add style
     );
     $('#delBnt').click(deleteItem);
-  
     div.append(delBtnEl);
+    weaponBlock.append(div);
   };
 const newWeapon = async () =>  {
     var form = $('<form>');
     form.attr('value', uuidv4());
     var myChoice = $('<select>');
     myChoice.attr('required');
-    myChoice.attr('id', 'sellection');
+    myChoice.attr('class', 'sellection');
     let choice = await List.getItem('/api/equipment-categories/weapon');
     $.each(choice, function(){
         myChoice.append(
-            $('<option></option>').val(value).html(choice.name).id(choice.index)
+            $('<option></option>').val(choice.data.url).html(choice.data.name).id(choice.data.index)
         );
     });
     form.append(myChoice);
@@ -110,9 +82,152 @@ const newWeapon = async () =>  {
       //add style
     );
     saveBnt.attr('type',"submit")
-    $("savBnt").submit(saveWeapon);
+    $("savBnt").submit(createWeaponBlock(myChoice.val()));
   
     form.append(saveBnt);
-    weaponblock.append(form);
+    weaponBlock.append(form);
 };
 
+//creates spell card.
+const createSpellBlock = async (e) =>{
+  e.stopPropagation();
+  //deletes old form and relaces with info.
+  const item = e.target;
+  const wName = JSON.parse(item.siblings('.sellection').val());
+  //api call to get info.
+  const itemInfo =  await List.getItem(wName);
+  const formid = JSON.parse(item.parentElement.getAttribute('id'));
+  formid.remove();
+//creates the spell block
+  var div = $('<tr>');
+  var title =$('<th>');
+  title.text(itemInfo.data.name);
+  title.attr('scope',"row");
+  div.attr("value", `${itemInfo.data.desc[1]} ${itemInfo.data.desc[2]}`);
+  //on hover function that displays damage info
+  div.on("mouseover", () => {
+    var discription = $('<div>'); 
+    var range = $('<p>');
+    range.text = itemInfo.data.range
+    var dec = $('<p>');
+    dec.text = itemInfo.data.desc[1]
+    div.attr("class","hoverinfo");
+    discription.text(($(this).attr("value")));
+    discription.append(div);
+  })
+  title.append(div);
+  //adds delete button.
+  const delBtnEl = $('<i>');
+  delBtnEl.attr("id", "delBnt");
+  delBtnEl.attr('class',
+    //add style
+  );
+  $('#delBnt').click(deleteItem);
+  div.append(delBtnEl);
+   spellBlock.append(div);
+};
+
+//creats spell selection form.
+const newspell = async () =>  {
+  var form = $('<form>');
+  form.attr('value', uuidv4());
+  var myChoice = $('<select>');
+  myChoice.attr('required');
+  myChoice.attr('class', 'sellection');
+  let choice = await List.getItem('/api/equipment-categories/weapon');
+  $.each(choice, function(){
+      myChoice.append(
+          $('<option></option>').val(choice.data.url).html(choice.data.name).id(choice.data.index)
+      );
+  });
+  form.append(myChoice);
+  //adds delete button
+  const delBtnEl = $('<i>');
+  delBtnEl.attr("id", "delBnt");
+  delBtnEl.attr('class',
+    //add style
+  );
+  $('#delBnt').click(deleteItem);
+
+  form.append(delBtnEl);
+  const saveBnt = $('<i>');
+  saveBnt.attr("id", "savBnt");
+  saveBnt.attr('class',
+    //add style
+  );
+  saveBnt.attr('type',"submit")
+  $("savBnt").submit(createSpellBlock(myChoice.val()));
+
+  form.append(saveBnt);
+  spellBlock.append(form);
+};
+
+const createOtherBlock = async (e) =>{
+  e.stopPropagation();
+  //deletes old form and relaces with info.
+  const item = e.target;
+  const name = JSON.parse(item.siblings('.inputTitle').val());
+  const desc = JSON.parse(item.siblings('.inputDesc').val());
+  const formid = JSON.parse(item.parentElement.getAttribute('id'));
+  formid.remove();
+//creates the spell block
+  var div = $('<tr>');
+  var title =$('<th>');
+  title.text(name);
+  title.attr('scope',"row");
+  div.attr("value", desc);
+  //on hover function that displays damage info
+  div.on("mouseover", () => {
+    var discription = $('<div>'); 
+    div.attr("class","hoverinfo");
+    discription.text(($(this).attr("value")));
+    discription.append(div);
+  })
+  title.append(div);
+  //adds delete button.
+  const delBtnEl = $('<i>');
+  delBtnEl.attr("id", "delBnt");
+  delBtnEl.attr('class',
+    //add style
+  );
+  $('#delBnt').click(deleteItem);
+  div.append(delBtnEl);
+   spellBlock.append(div);
+};
+//creats other selection form.
+const newother = async () =>  {
+  var form = $('<form>');
+  form.attr('value', uuidv4());
+  var myTitle = $('<input>');
+  myTitle .attr('type',"text");
+  myTitle .attr('placeholder','Title.')
+  myTitle .attr('required');
+  myTitle .attr('class', 'inputTitle');
+  form.append(myTitle);
+  var myDesc = $('<input>');
+  myDesc.attr('type',"text");
+  myDesc.attr('placeholder','Description')
+  myDesc.attr('required');
+  myDesc.attr('class', 'inputDesc');
+  form.append(myDesc);
+  //adds delete button
+  const delBtnEl = $('<i>');
+  delBtnEl.attr("id", "delBnt");
+  delBtnEl.attr('class',
+    //add style
+  );
+  $('#delBnt').click(deleteItem);
+
+  form.append(delBtnEl);
+  //adds saveBnt
+  const saveBnt = $('<i>');
+  saveBnt.attr("id", "savBnt");
+  saveBnt.attr('class',
+    //add style
+  );
+  saveBnt.attr('type',"submit")
+  $("savBnt").submit(createOtherBlock(myChoice.val()));
+
+  form.append(saveBnt);
+  spellBlock.append(div);
+};
