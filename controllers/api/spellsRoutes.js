@@ -1,28 +1,28 @@
 const router = require("express").Router();
-const { Weapon } = require("../../models");
+const { Spells } = require("../../models");
 
-router.post("/weapon", async (req, res) => {
+router.post("/spells", async (req, res) => {
     try {
-        const loadNewWeapons = async () =>{
-            await Weapon.sync().then(function() {
-            Weapon.findOrCreate({
+        const loadNewSpells = async () =>{
+            await Spells.sync().then(function() {
+            Spells.findOrCreate({
                 where: {
                     name: req.body.name.trim(),
                     damage: req.body.damage.trim(),
                 }
             })
             .then(function(result) {
-                var weapon = result[0], 
+                var spell = result[0], 
                   created = result[1]; 
           
                 if (!created) { // false if weapon already exists and was not created.
-                  console.log('weapon already exists');
+                  console.log('spell already exists');
                 }
             })
         })
         }
-        const weaponData = req.body.map()
-            .forEach(loadNewWeapons);       
+        const spellData = req.body.map()
+            .forEach(loadNewSpells);       
     }
     catch (err) {
         res.status(500).json(err);

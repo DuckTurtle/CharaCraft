@@ -6,15 +6,13 @@ class Weapon extends Model {}
 
 Weapon.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-    },
-    weapon_name: {
+    name: {
       type: DataTypes.STRING,
+      primaryKey: true,
+      allowNull: false,
+      unique:true,
     },
-    weapon_dice: {
+    damage: {
         type: DataTypes.STRING,
         allowNull: false,
       }

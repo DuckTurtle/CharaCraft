@@ -10,13 +10,20 @@ Other.init(
       allowNull: false,
       primaryKey: true,
     },
-    other_name: {
+    name: {
       type: DataTypes.STRING,
     },
     description: {
         type: DataTypes.STRING,
         allowNull: false,
-      }
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "user",
+          key: "id",
+        },
+      },
   },
   {
     sequelize,

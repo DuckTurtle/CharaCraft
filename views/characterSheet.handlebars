@@ -1,0 +1,116 @@
+
+<div class="main fullLength d-flex justify-content-center" id="charater" value="{{Character.id}}">
+  <div class="row justify-content-center align-content-center">
+      <!-- spells div-->
+  <div class="row col-2 d-flex justify-content-center bg-warning justify-content-center g-0 border border-dark border-5">
+      <h3 class="text-center"><strong>SPELLS</strong></h3>
+      <table class="table border border-dark border-5">
+          <thead>
+            <tr>
+              <th scope="col">Spell name</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider" id="spelldiv">
+            {{#each spells as |character|}}
+            <button id="newSpell""></button>
+          </tbody>
+        </table>
+      <!-- <a class="btn btn-outline-danger my-1" href="#" role="button">Log Out</a> -->
+  </div>
+  
+  <!-- main cahracter sheet-->
+  <div class="row col-5 align-self-center bg-warning justify-content-center g-0 border border-dark border-5">
+  <div>
+      <h2 class="text-center">Character Name</h2>
+  </div>
+  <div>
+      <h3 class="text-center"> Race and Level </h3>
+      <button id="saveBnt">Save</button>
+  </div>
+  <div class="row justify-content-around">
+      <div class="col-md-4 text-center">
+          <label class="labelWidth" for="hitpoints">Hitpoints</label>
+          <br/>
+          <input type="number" id="hitpoints" class="statWidth" value="18">
+      </div>
+      <div class="col-md-4 text-center">
+          <label class="labelWidth" for="armor">Armor Class</label>
+          <br/>
+          <input type="number" name="armor" id="armor" class="statWidth" required="required" placeholder="0" value="15">
+      </div>
+      <div class="col-md-4 text-center">
+          <label class="labelWidth" for="speed">Speed</label>
+          <br/>
+          <input type="number" name="speed" id="speed" class="statWidth" required="required" placeholder="0" value="30">
+      </div>
+  </div>
+  
+  <hr>
+  <div class="stats abilities d-flex justify-content-evenly my-3">
+      <div>
+       <label for="str"><strong>STR</strong></label>
+       <div id="str" class="stat" contenteditable="true">8 (+0)</div>
+      </div>
+           <div>
+          <label for="dex"><strong>DEX</strong></label>
+          <div id="dex" class="stat" contenteditable="true">16 (+3)</div>
+      </div>
+      <div>
+          <label for="con"><strong>CON</strong></label>
+           <div id="con" class="stat" contenteditable="true">10 (+0)</div>
+      </div>
+  </div>
+  <div class="stats abilities d-flex justify-content-evenly my-3">
+           <div>
+          <label for="int"><strong>INT</strong></label>
+           <div id="int" class="stat" contenteditable="true">13 (+1)</div>
+      </div>
+      <div>
+          <label for="wis"><strong>WIS</strong></label>
+           <div id="wis" class="stat" contenteditable="true">12 (+1)</div>
+      </div>
+      <div>
+          <label for="cha"><strong>CHA</strong></label>
+           <div id="cha" class="stat" contenteditable="true">16 (+3)</div>
+      </div>
+  </div>
+  <!-- weapon div-->
+  <div class="d-flex justify-content-center flex-wrap">
+      <div>
+          <h3 class="text-center">Weapons</h3>
+      </div>
+      <table class="table border border-dark border-5">
+          <thead>
+            <tr>
+              <th scope="col">Weapon name</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider" id="weapondiv">
+            <button id="newWeapon""></button>
+          </tbody>
+        </table>
+      
+  </div>
+  </div>
+  
+  <!-- 'other' div-->
+  <div class="row col-2 d-flex bg-warning justify-content-center g-0 border border-dark border-5">
+      
+          <h3 class="text-center"><strong>OTHER</strong></h3>
+      
+          <table class="table border border-dark border-5">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">description</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider" id="otherdiv">
+                <button id="newOther""></button>
+              </tbody>
+            </table>
+      
+  </div>
+  </div>
+  </div>
+    

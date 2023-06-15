@@ -30,6 +30,56 @@ Characters.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    hp: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+    },
+  armor_class: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+    },
+  initiative: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+    },
+  speed: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+    },
+  strength: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+    },
+  dexterity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+  },
+  constitution: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+    },
+  intelligence: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+    },
+  wisdom: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+    },
+  charisma: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+    },
 
     user_id: {
       type: DataTypes.INTEGER,
