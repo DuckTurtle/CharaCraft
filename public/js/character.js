@@ -1,8 +1,11 @@
 const List = require('./dndapi');
+const { v4: uuidv4 } = require('uuid')
 
+let weaponblock = $('#weaponBlock');
 let newWeaponButton = $('#newWeapon');
 let savebnt =$('saveBnt');
-let shownText = $('.text')
+let shownText = $('.text');
+const charID = $('charname').val();
 //show an element
 const show = (elem) => {
     elem.style.display = 'inline';
@@ -13,17 +16,47 @@ const show = (elem) => {
     elem.style.display = 'none';
   };
 
-const deleteItem = (e) => {
+const deleteItem = async (e) => {
     e.stopPropagation();
 
     const item = e.target;
-    const itemid = JSON.parse(item.getAttribute('id'));
-
-    get
+    const itemid = JSON.parse(item.parentElement.getAttribute('id'));
+    const itemval = JSON.parse(item.parentElement.getAttribute('value'));
+    itemid.remove();
+   await  fetch('/api/character/:id', {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(itemval),
+    });
   };
   
+
+  //creat save item
+  const saveWeapon = async (e) => {
+    e.stopPropagation();
+
+    const item = e.target;
+    const wName = ;
+    const itemid = JSON.parse(item.parentElement.getAttribute('id'));
+    const itemval = JSON.parse(item.parentElement.getAttribute('value'));
+    itemid.remove();
+    await  fetch('/api/character/:id', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: {
+        id:itemid,
+        name:,
+        url:JSON.stringify(itemval),
+      }
+    });
+  }
 const newWeapon = async () =>  {
     var form = $('<form>');
+    form.attr('value', uuidv4());
     var myChoice = $('<select>');
     let choice = await List.getItem('equipment-categories/weapon');
     $.each(choice, function(name,value){
@@ -39,6 +72,14 @@ const newWeapon = async () =>  {
     );
     delBtnEl.addEventListener('click', deleteItem);
   
-    form.append(delBtnEl)
+    form.append(delBtnEl);
+    const saveBnt = $('<i>');
+    saveBnt.addClass(
+      //add style
+    );
+    saveBnt.addEventListener('click', saveitem);
+  
+    form.append(delBtnEl);
+    weaponblock.append(form);
 };
 
