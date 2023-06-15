@@ -1,4 +1,4 @@
-const withAuth = (req, res, next) => {
+const checkAuth = (req, res, next) => {
     // cheks if user is logged in if not makes them.
     if (!req.session.logged_in) {
       res.redirect('/login');
@@ -7,4 +7,4 @@ const withAuth = (req, res, next) => {
     }
   };
   
-  module.exports = withAuth;
+  module.exports = checkAuth;

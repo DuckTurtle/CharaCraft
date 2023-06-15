@@ -6,15 +6,12 @@ class Spells extends Model {}
 
 Spells.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-    },
-    spells_name: {
+    name: {
       type: DataTypes.STRING,
+      primaryKey: true,
+      unique:true,
     },
-    spells_dice: {
+    Damage: {
         type: DataTypes.STRING,
         allowNull: true,
       }

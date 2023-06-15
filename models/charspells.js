@@ -19,7 +19,7 @@ Charspell.init(
         unique: false
       }
     },
-    spell_id: {
+    spell_name: {
       type: DataTypes.INTEGER,
       references: {
         model: 'spell',

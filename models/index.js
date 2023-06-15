@@ -3,11 +3,11 @@ const Characters = require('./character');
 const Charspell = require('./charspells');
 const CharOther = require('./charother');
 const CharWeapon = require('./charweapons');
-const CharStats = require('./charastats');
+//const CharStats = require('./charstats');
 const Spells = require('./spells');
 const Weapon = require('./weapon');
 const Other = require('./other');
-const Stats = require('./stats');
+//const Stats = require('./stats');
 
 
 User.hasMany(Characters, {
@@ -54,7 +54,7 @@ User.hasMany(Characters, {
       unique: false
     },
   });
-  Characters.belongsToMany(Stats,{
+ /* Characters.belongsToMany(Stats,{
     through: {
       model: CharStats,
       unique: false
@@ -65,7 +65,7 @@ User.hasMany(Characters, {
       model: CharStats,
       unique: false
     },
-  });
+  });*/
 
 module.exports = { 
     User,
@@ -75,6 +75,4 @@ module.exports = {
     CharWeapon,
     Charspell,
     CharOther,
-    Other,
-    CharStats,
-    Stats };
+    Other};
