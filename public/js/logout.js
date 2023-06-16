@@ -8,7 +8,7 @@ fetch('/logout', {
     }
 })
 .then(function(response) {
-    window.location.href = '/api/dndllogin';
+    res.render = ('/views/layouts/main');
 })
 .catch(function(error) {
     console.error('Error:', error);
