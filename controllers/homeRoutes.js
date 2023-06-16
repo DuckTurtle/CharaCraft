@@ -1,16 +1,16 @@
 const router = require("express").Router();
-const { User } = require("../models");
+const { Prebuilts } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
-    const userData = await User.findOne({ where: { name: "prebuilts" } });
+    const prebuiltData = await Prebuilts.findAll();
 
-    const characters = userData.map((character) =>
-      character.get({ plain: true })
+    const prebuilts = prebuiltData.map((prebuilt) =>
+      prebuilt.get({ plain: true })
     );
 
     res.render("landing", {
-      characters,
+      prebuilts,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
