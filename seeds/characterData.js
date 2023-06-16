@@ -19,7 +19,7 @@ const characterData = [
     charisma: 18,
     description:
       "Adaptable warrior adaptable to any combat situation, wielding a variety of weapons and fighting styles to deal devastating blows and endure battles with unmatched resilience.",
-    filename: "../public/images/fighter.png",
+    filename: "/images/fighter.png",
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ const characterData = [
     charisma: 11,
     description:
       "Scholarly spellcaster with a vast repertoire of arcane magic, capable of manipulating spells from different schools and providing versatile magical solutions.",
-    filename: "../public/images/wizard.png",
+    filename: "./images/wizard.png",
   },
   {
     id: 3,
@@ -59,7 +59,7 @@ const characterData = [
     charisma: 8,
     description:
       "Nature-bound hunters with a keen eye for long-range combat, surviving the wilderness while relying on animal companions and natural magic to track foes and strike deadly blows from a distance.",
-    filename: "../public/images/ranger.png",
+    filename: "./images/ranger.png",
   },
 ];
 
