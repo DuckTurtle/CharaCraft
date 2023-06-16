@@ -7,7 +7,7 @@ let newWeaponButton = $('#newWeapon');
 let newSpellButton = $('#newSpell');
 let newOtherButton = $('#newOther');
 let savebnt =$('#saveBnt');
-const charID = $('charname').val();
+const charID = $('#charater').val();
 
 const deleteItem = (e, array,) => {
     e.stopPropagation();
@@ -109,6 +109,7 @@ const createOtherBlock = async (e) =>{
 //creates the spell block
   var div = $('<tr>');
   div.attr("id", formid);
+  div.attr('class',"otherSlab")
   var title =$('<th>');
   title.text(name);
   title.attr('scope',"row");
@@ -242,10 +243,9 @@ const newOther = async () =>  {
 const saveCharacter = async (e) => {
   e.stopPropagation();
   await saveWeapons();
-  await saveStats();
   await saveOther();
-  await saveSpels();
-  await saveAll();
+  await saveSpells();
+  await saveToDB();
   
 }
 newWeaponButton.on('click',newWeapon());
@@ -297,7 +297,7 @@ await $('.spellSlab').map( () => {
 const saveOther = async(e) => {
   e.stopPropagation();
   let currentOther = [];
-await $('.spellSlab').map( () => {
+await $('.otherSlab').map( () => {
   let oName = $(this).childElement.getAttribute('name');
   let oDamage = $(this).val();
   let oId = $(this).getAttribute('id')
@@ -316,4 +316,53 @@ await $('.spellSlab').map( () => {
     },
   });
  });
+};
+const saveToDB = async(e) => {
+  e.stopPropagation();
+  //gets others name
+  let currentOther = [];
+await $('.otherSlab').map( () => {
+  let oId = $(this).getAttribute('id')
+  currentOther.push({
+    id:oId,
+  });
+})
+//gets spells name
+let currentSpells = [];
+await $('.spellSlab').map( () => {
+  let sName = $(this).childElement.getAttribute('name');
+  currentSpells.push({
+    name:sName,
+  });
+});
+  // gets weapons names
+  let currentWeapons = [];
+await $('.weaponSlab').map( () => {
+  let wName = $(this).childElement.getAttribute('name');
+  currentWeapons.push({
+    name:wName,
+  });
+});
+let cname = $();
+where: {
+          id:charID,
+          name: req.body.name,
+          campaign_name:req.body.campaign_name,
+          class:req.body.class,
+          level:req.body.level,
+          race:req.body.race,
+          hp:req.body.hp,
+          armor_class:req.body.armor_class,
+          initiative:req.body.initiative,
+          speed:req.body.speed,
+          strength:req.body.strength,
+          dexterity:req.body.dexterity,
+          constitution:req.body.constitution,
+          intelligence:req.body.intelligence,
+          wisdom:req.body.wisdom,
+          charisma:req.body.charisma,
+          stats_name: [],
+          weapon_name: [],
+          otherIds: [],
+}
 };

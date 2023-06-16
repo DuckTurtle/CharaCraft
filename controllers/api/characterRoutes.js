@@ -67,4 +67,47 @@ router.get('/character', async (req, res) => {
       res.status(500).json(err);
     }
   });
+  router.put('/character', checkAuth, async (req, res, next) => {
+    try {
+      const oldChar = await Characters.findByPk(req.body.id);
+      if(oldChar){
+        Characters.destroy({
+          where: {
+            id:req.params.id,
+            user_id: req.session.user_id,
+          }
+        });
+      } else {
+        next();
+      }
+      const newProject = await Characters.create({
+        where: {
+          id:req.body.id,
+          name: req.body.name,
+          campaign_name:req.body.campaign_name,
+          class:req.body.class,
+          level:req.body.level,
+          race:req.body.race,
+          hp:req.body.hp,
+          armor_class:req.body.armor_class,
+          initiative:req.body.initiative,
+          speed:req.body.speed,
+          strength:req.body.strength,
+          dexterity:req.body.dexterity,
+          constitution:req.body.constitution,
+          intelligence:req.body.intelligence,
+          wisdom:req.body.wisdom,
+          charisma:req.body.charisma,
+          stats_name: [],
+          weapon_name: [],
+          otherIds: [],
+        user_id: req.session.user_id,
+        }
+      });
+  
+      res.status(200).json(newProject);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  });
   module.exports = router;
