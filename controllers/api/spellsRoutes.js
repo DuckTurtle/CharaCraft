@@ -29,3 +29,4 @@ router.post("/spells", async (req, res) => {
     }
 
 });
+module.exports = router;

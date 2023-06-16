@@ -31,3 +31,4 @@ router.post("/other", async (req, res) => {
     }
 
 });
+module.exports = router;
