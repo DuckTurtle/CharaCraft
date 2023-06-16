@@ -10,17 +10,17 @@
     {{/unless}}
     <div class="d-flex flex-wrap justify-content-around cards">
 
-    {{#each characters as |character|}}
+    {{#each prebuilts as |prebuilt|}}
       <!--card -->
     <div class="card cardEdit border border-dark-subtle border-5" style="width: 18rem;">
-      <img src={{class.image}} class="card-img-top" alt="...">
+      <img src="{{prebuilt.filename}}" class="card-img-top" alt="...">
       <div class="card-body text-center mb-2">
-        <h5 class="card-title underline"><strong>{{class}}</strong></h5>
-        <p class="card-text">{{class.description}}Skilled warrior adaptable to any combat situation, wielding a variety of weapons and fighting styles to deal devastating blows and endure battles with unmatched resilience.</p>
+        <h5 class="card-title underline"><strong>{{prebuilt.class}}</strong></h5>
+        <p class="card-text">{{prebuilt.description}}</p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Name: <strong>{{character.name}}</strong></li>
-        <li class="list-group-item">Race: <strong>{{character.race}}</strong></li>
+        <li class="list-group-item">Name: <strong>{{prebuilt.name}}</strong></li>
+        <li class="list-group-item">Race: <strong>{{prebuilt.race}}</strong></li>
       </ul>
       <div class="card-body text-center">
         <a href="#" class="btn btn-primary">View Character</a>
