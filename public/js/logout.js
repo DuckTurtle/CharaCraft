@@ -8,7 +8,7 @@ fetch('/logout', {
     }
 })
 .then(function(response) {
-    res.render = ('/views/layouts/main');
+   document.location.replace('/landing');
 })
 .catch(function(error) {
     console.error('Error:', error);
