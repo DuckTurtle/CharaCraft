@@ -23,25 +23,26 @@
   <!-- main cahracter sheet-->
   <div class="row col-5 align-self-center bg-warning justify-content-center g-0 border border-dark border-5 border-end-0 border-start-0">
   <div>
-      <h2 class="text-center">Character Name</h2>
+      <h2 class="text-center" id="character">Character Name</h2>
   </div>
   <div>
-      <h3 class="text-center"> Race and Level </h3>
+      <h3 class="text-center" id="race"> Race</h3>
+      <h3 class="text-center" id="level"> Level </h3>
   </div>
   <a class="btn btn-outline-primary my-1" id="saveBtn" href="#" role="button">Save</a>
   <div class="row justify-content-around mb-4">
       <div class="col-md-4 text-center">
-          <label class="labelWidth" for="hitpoints">Hitpoints</label>
+          <label class="labelWidth" for="hitpoints" id="hitpoints">Hitpoints</label>
           <br/>
           <input type="number" id="hitpoints" class="statWidth" value="18">
       </div>
       <div class="col-md-4 text-center">
-          <label class="labelWidth" for="armor">Armor Class</label>
+          <label class="labelWidth" for="armor" id="armorClass">Armor Class</label>
           <br/>
           <input type="number" name="armor" id="armor" class="statWidth" required="required" placeholder="0" value="15">
       </div>
       <div class="col-md-4 text-center">
-          <label class="labelWidth" for="speed">Speed</label>
+          <label class="labelWidth" for="speed" id="speed">Speed</label>
           <br/>
           <input type="number" name="speed" id="speed" class="statWidth" required="required" placeholder="0" value="30">
       </div>
@@ -82,7 +83,7 @@
   <!-- weapon div-->
   <div class="d-flex justify-content-center flex-wrap">
       <div>
-          <h3 class="text-center">Weapons</h3>
+          <h3 class="text-center" >Weapons</h3>
           <a class="btn btn-outline-primary my-1" id="newWeapon" href="#" role="button">Add a Weapon</a>
       </div>
       <table class="table border border-dark border-5 border-end-0 border-start-0 table-dark table-striped">
@@ -112,6 +113,9 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider" id="otherdiv">
+                {{#each other as |character|}}
+                <td>{other}</td>
+                {{/each}}
               </tbody>
             </table>
       
