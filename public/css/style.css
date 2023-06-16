@@ -11,9 +11,10 @@
   margin-top: 30px;
 }
 
-.main {
+.mainBackground {
   background-image: url("../images/dungeon.jpg");
   background-size: cover;
+  height: 95.2vh;
 }
 
 .ranger {
