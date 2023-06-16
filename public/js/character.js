@@ -240,18 +240,6 @@ const newOther = async () =>  {
   spellBlock.append(div);
 };
 
-const saveCharacter = async (e) => {
-  e.stopPropagation();
-  await saveWeapons();
-  await saveOther();
-  await saveSpells();
-  await saveToDB();
-  
-}
-newWeaponButton.on('click',newWeapon());
-newSpellButton.on('click',newSpell());
-newOtherButton.on('click',newOther());
-
 const saveWeapons = async(e) => {
   e.stopPropagation();
   let currentWeapons = [];
@@ -343,26 +331,48 @@ await $('.weaponSlab').map( () => {
     name:wName,
   });
 });
-let cname = $();
-where: {
-          id:charID,
-          name: req.body.name,
-          campaign_name:req.body.campaign_name,
-          class:req.body.class,
-          level:req.body.level,
-          race:req.body.race,
-          hp:req.body.hp,
-          armor_class:req.body.armor_class,
-          initiative:req.body.initiative,
-          speed:req.body.speed,
-          strength:req.body.strength,
-          dexterity:req.body.dexterity,
-          constitution:req.body.constitution,
-          intelligence:req.body.intelligence,
-          wisdom:req.body.wisdom,
-          charisma:req.body.charisma,
-          stats_name: [],
-          weapon_name: [],
-          otherIds: [],
+let cname = $('');
+let campaignName= $('');
+let cclass= $('');
+let cLevel= $('');
+let crace= $('');
+let chp= $('');
+let armorClass= $('');
+let cinitiative= $('');
+let cspeed= $('');
+let cstrength= $('');
+let cdexterity= $('');
+let cconstitution= $('');
+let cintelligence= $('');
+let cwisdom= $('');
+let ccharisma= $('');
+if (charID && cname && campaignName && cclass && cLevel && crace && chp && armorClass && cinitiative &&
+  cspeed && cstrength && cdexterity && cconstitution && cintelligence && cwisdom && ccharisma) {
+  const response = await fetch(`/api/characters`, {
+    method: 'POST',
+    body: JSON.stringify({charID,cname, campaignName,cclass,cLevel,crace,chp,armorClass,cinitiative,
+      cspeed, cstrength, cdexterity, cconstitution, cintelligence, cwisdom, ccharisma,
+      currentSpells, currentWeapons,currentOther}),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  if (response.ok) {
+    console.log('Character saved');
+  } else {
+    alert('Failed to Save Character');
+  }
 }
 };
+const saveCharacter = async (e) => {
+  e.stopPropagation();
+  await saveWeapons();
+  await saveOther();
+  await saveSpells();
+  await saveToDB();
+  
+}
+newWeaponButton.on('click',newWeapon());
+newSpellButton.on('click',newSpell());
+newOtherButton.on('click',newOther());
+savebnt.on('click',saveCharacter());

@@ -67,7 +67,7 @@ router.get('/character', async (req, res) => {
       res.status(500).json(err);
     }
   });
-  router.put('/character', checkAuth, async (req, res, next) => {
+  router.POST('/character', checkAuth, async (req, res, next) => {
     try {
       const oldChar = await Characters.findByPk(req.body.id);
       if(oldChar){
@@ -98,7 +98,7 @@ router.get('/character', async (req, res) => {
           intelligence:req.body.intelligence,
           wisdom:req.body.wisdom,
           charisma:req.body.charisma,
-          stats_name: [],
+          spells_name: [],
           weapon_name: [],
           otherIds: [],
         user_id: req.session.user_id,

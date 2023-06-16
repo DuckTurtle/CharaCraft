@@ -4,7 +4,8 @@
       <!-- spells div-->
   <div class="row col-2 d-flex justify-content-center bg-warning justify-content-center g-0 border border-dark border-5">
       <h3 class="text-center"><strong>SPELLS</strong></h3>
-      <table class="table border border-dark border-5">
+      <a class="btn btn-outline-primary my-1" id="newSpell" href="#" role="button">add a spell</a>
+      <table class="table border border-dark border-5 border-end-0 border-start-0 table-dark table-striped">
           <thead>
             <tr>
               <th scope="col">Spell name</th>
@@ -12,22 +13,23 @@
           </thead>
           <tbody class="table-group-divider" id="spelldiv">
             {{#each spells as |character|}}
-            <button id="newSpell"></button>
+            <td>{spell}</td>
+            {{/each}}
           </tbody>
         </table>
       <!-- <a class="btn btn-outline-danger my-1" href="#" role="button">Log Out</a> -->
   </div>
   
   <!-- main cahracter sheet-->
-  <div class="row col-5 align-self-center bg-warning justify-content-center g-0 border border-dark border-5">
+  <div class="row col-5 align-self-center bg-warning justify-content-center g-0 border border-dark border-5 border-end-0 border-start-0">
   <div>
       <h2 class="text-center">Character Name</h2>
   </div>
   <div>
       <h3 class="text-center"> Race and Level </h3>
-      <button id="saveBnt">Save</button>
   </div>
-  <div class="row justify-content-around">
+  <a class="btn btn-outline-primary my-1" id="saveBtn" href="#" role="button">Save</a>
+  <div class="row justify-content-around mb-4">
       <div class="col-md-4 text-center">
           <label class="labelWidth" for="hitpoints">Hitpoints</label>
           <br/>
@@ -74,19 +76,22 @@
            <div id="cha" class="stat" contenteditable="true">16 (+3)</div>
       </div>
   </div>
+
+  <hr>
+
   <!-- weapon div-->
   <div class="d-flex justify-content-center flex-wrap">
       <div>
           <h3 class="text-center">Weapons</h3>
+          <a class="btn btn-outline-primary my-1" id="newWeapon" href="#" role="button">Add a Weapon</a>
       </div>
-      <table class="table border border-dark border-5">
+      <table class="table border border-dark border-5 border-end-0 border-start-0 table-dark table-striped">
           <thead>
             <tr>
               <th scope="col">Weapon name</th>
             </tr>
           </thead>
           <tbody class="table-group-divider" id="weapondiv">
-            <button id="newWeapon""></button>
           </tbody>
         </table>
       
@@ -97,8 +102,9 @@
   <div class="row col-2 d-flex bg-warning justify-content-center g-0 border border-dark border-5">
       
           <h3 class="text-center"><strong>OTHER</strong></h3>
+          <a class="btn btn-outline-primary my-1" id="newOther" href="#" role="button">Add item</a>
       
-          <table class="table border border-dark border-5">
+          <table class="table border border-dark border-5 border-end-0 border-start-0 table-dark table-striped">
               <thead>
                 <tr>
                   <th scope="col">Name</th>
@@ -106,7 +112,6 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider" id="otherdiv">
-                <button id="newOther""></button>
               </tbody>
             </table>
       
