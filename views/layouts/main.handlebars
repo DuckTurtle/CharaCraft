@@ -36,11 +36,11 @@
       </ul>
       {{#unless logged_in}}
       <a class="btn btn-outline-warning right my-1 mt-" href="#" role="button" onclick="openBox()">Dice Roll</a>
-      <a class="btn btn-outline-warning right my-1 mt-" href="#" role="button" id="signUpBtn">Sign Up</a>
+      <a class="btn btn-outline-warning right my-1 mt-" href="/signup" role="button" id="signUpBtn">Sign Up</a>
       <a class="btn btn-outline-warning my-1" href="/login" role="button" id="loginBtn">Login</a>
       {{/unless}}
       {{#if logged_in}}
-      <a class="btn btn-outline-warning my-1" href="#" role="button">Log Out</a>
+      <a class="btn btn-outline-warning my-1" href="#" role="button" id="logout">Log Out</a>
       {{/if}}
 
     </div>

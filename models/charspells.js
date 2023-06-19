@@ -23,7 +23,7 @@ Charspell.init(
       type: DataTypes.INTEGER,
       references: {
         model: 'spell',
-        key: 'id',
+        key: 'name',
         unique: false
       }
     }

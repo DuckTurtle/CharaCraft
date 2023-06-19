@@ -31,14 +31,23 @@ router.get("/", async (req, res) => {
 
 router.get("/login", (req, res) => {
   if (req.session.logged_in) {
-    res.redirect("/");
+    res.redirect("/UserPortal");
     return;
   }
 
   res.render("login");
 });
+router.get("/signup", (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect("/UserPortal");
+    return;
+  }
 
-router.get("/userPortal", checkAuth, async (req, res) => {
+  res.render("signup");
+});
+
+
+router.get("/UserPortal", checkAuth, async (req, res) => {
   try {
     // Get all projects and JOIN with user data
     const characterData = await Characters.findAll({

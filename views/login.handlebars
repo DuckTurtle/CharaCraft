@@ -1,19 +1,22 @@
-<body>
-  <div class="pad-top bottom pt-1 d-flex justify-content-center flex-wrap">
-    <h1 class="text-warning text-center widthFull my-5">CharaCraft</h1>
-    <div class="row text-center col-8 align-self-center d-flex justify-content-center">
-      <form action="login.php" method="post">
+
+  <div class ="main">
+    <div class="pad-top bottom pt-1 d-flex justify-content-center flex-wrap">
+        <h1 class="text-warning text-center widthFull my-5">CharaCraft</h1>
+        <div  class="row text-center col-8 align-self-center d-flex justify-content-center">
+    <form id="loginformcontainer" >
         <div class="formcontainer bg-warning border border-dark border-5 py-4">
-          <h1 class="">CharaCraft Login</h1>
-          <label for = "username"><b>Username</b></label>
-          <input type = "text" placeholder="Enter Username" name="username" id="username">
-          <label for = "password"><b>Password</b></label>
-          <input type = "text" placeholder="Enter Password" name="password" id="password" required>
-          <button type= "submit" class="btn-login" id="loginSubmit">Login</button>
+            <h1 class="mx">CharaCraft Login</h1>
+            <label for = "username"><b>Email</b></label>
+            <input type = "text" placeholder="Enter Email" id="username" required>
+
+            <label for = "password"><b>Password</b></label>
+            <input type = "text" placeholder="Enter Password" id="password" required>
+
+            <button type= "submit" class="btn-login" id="loginBnt">Login</button>
         </div>
         <div class="container" style="background-color: lightgray;"></div>
-      </form>
+    </form>
     </div>
-  </div> 
-</body>
-</html>
+</div> 
+
+<script src="./js/login.js"></script>
