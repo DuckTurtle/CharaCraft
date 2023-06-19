@@ -30,12 +30,12 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           {{#if logged_in}}
-          <a class="nav-link text-warning" href="#">Characters</a>
+          <a class="nav-link text-warning" href="/UserPortal">Characters</a>
           {{/if}}
         </li>
       </ul>
+       <a class="btn btn-outline-warning right my-1 mt-" href="#" role="button" onclick="openBox()">Dice Roll</a>
       {{#unless logged_in}}
-      <a class="btn btn-outline-warning right my-1 mt-" href="#" role="button" onclick="openBox()">Dice Roll</a>
       <a class="btn btn-outline-warning right my-1 mt-" href="/signup" role="button" id="signUpBtn">Sign Up</a>
       <a class="btn btn-outline-warning my-1" href="/login" role="button" id="loginBtn">Login</a>
       {{/unless}}
