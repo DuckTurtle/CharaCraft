@@ -9,16 +9,17 @@ Other.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
+      autoIncrement:true,
     },
     name: {
       type: DataTypes.STRING,
     },
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       user_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         references: {
           model: "user",
           key: "id",

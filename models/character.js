@@ -82,7 +82,7 @@ Characters.init(
     },
 
     user_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       references: {
         model: "user",
         key: "id",

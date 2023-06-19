@@ -7,7 +7,7 @@ let newWeaponButton = $('#newWeapon');
 let newSpellButton = $('#newSpell');
 let newOtherButton = $('#newOther');
 let savebnt =$('#saveBnt');
-const charID = $('charname').val();
+const charID = $('#charater').val();
 
 const deleteItem = (e, array,) => {
     e.stopPropagation();
@@ -109,6 +109,7 @@ const createOtherBlock = async (e) =>{
 //creates the spell block
   var div = $('<tr>');
   div.attr("id", formid);
+  div.attr('class',"otherSlab")
   var title =$('<th>');
   title.text(name);
   title.attr('scope',"row");
@@ -239,19 +240,6 @@ const newOther = async () =>  {
   spellBlock.append(div);
 };
 
-const saveCharacter = async (e) => {
-  e.stopPropagation();
-  await saveWeapons();
-  await saveStats();
-  await saveOther();
-  await saveSpels();
-  await saveAll();
-  
-}
-newWeaponButton.on('click',newWeapon());
-newSpellButton.on('click',newSpell());
-newOtherButton.on('click',newOther());
-
 const saveWeapons = async(e) => {
   e.stopPropagation();
   let currentWeapons = [];
@@ -297,7 +285,7 @@ await $('.spellSlab').map( () => {
 const saveOther = async(e) => {
   e.stopPropagation();
   let currentOther = [];
-await $('.spellSlab').map( () => {
+await $('.otherSlab').map( () => {
   let oName = $(this).childElement.getAttribute('name');
   let oDamage = $(this).val();
   let oId = $(this).getAttribute('id')
@@ -317,3 +305,74 @@ await $('.spellSlab').map( () => {
   });
  });
 };
+const saveToDB = async(e) => {
+  e.stopPropagation();
+  //gets others name
+  let currentOther = [];
+await $('.otherSlab').map( () => {
+  let oId = $(this).getAttribute('id')
+  currentOther.push({
+    id:oId,
+  });
+})
+//gets spells name
+let currentSpells = [];
+await $('.spellSlab').map( () => {
+  let sName = $(this).childElement.getAttribute('name');
+  currentSpells.push({
+    name:sName,
+  });
+});
+  // gets weapons names
+  let currentWeapons = [];
+await $('.weaponSlab').map( () => {
+  let wName = $(this).childElement.getAttribute('name');
+  currentWeapons.push({
+    name:wName,
+  });
+});
+let cname = $('');
+let campaignName= $('');
+let cclass= $('');
+let cLevel= $('');
+let crace= $('');
+let chp= $('');
+let armorClass= $('');
+let cinitiative= $('');
+let cspeed= $('');
+let cstrength= $('');
+let cdexterity= $('');
+let cconstitution= $('');
+let cintelligence= $('');
+let cwisdom= $('');
+let ccharisma= $('');
+if (charID && cname && campaignName && cclass && cLevel && crace && chp && armorClass && cinitiative &&
+  cspeed && cstrength && cdexterity && cconstitution && cintelligence && cwisdom && ccharisma) {
+  const response = await fetch(`/api/characters`, {
+    method: 'POST',
+    body: JSON.stringify({charID,cname, campaignName,cclass,cLevel,crace,chp,armorClass,cinitiative,
+      cspeed, cstrength, cdexterity, cconstitution, cintelligence, cwisdom, ccharisma,
+      currentSpells, currentWeapons,currentOther}),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  if (response.ok) {
+    console.log('Character saved');
+  } else {
+    alert('Failed to Save Character');
+  }
+}
+};
+const saveCharacter = async (e) => {
+  e.stopPropagation();
+  await saveWeapons();
+  await saveOther();
+  await saveSpells();
+  await saveToDB();
+  
+}
+newWeaponButton.on('click',newWeapon());
+newSpellButton.on('click',newSpell());
+newOtherButton.on('click',newOther());
+savebnt.on('click',saveCharacter());

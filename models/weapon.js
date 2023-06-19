@@ -13,7 +13,7 @@ Weapon.init(
       unique:true,
     },
     damage: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       }
   },

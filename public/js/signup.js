@@ -1,39 +1,24 @@
-//sign up for user
-document.querySelector('SignUpForm').addEventListener('submit', function (event){
+
+const signUp = async (event) => {
     event.preventDefault();
-})
-
-const username = document.querySelector('#username').value.trim;
-const email = document.querySelector('#email').value.trim;
-const password = document.querySelector('#password').value.trim;
-
-signup(username, email, password);
-
-
-function signUp(username, email, password) {
-    const requestLogin = {
-        username: username, 
-        email: email,
-        password: password,
-    }
-
-fetch ('/api//signup', {
+    const username = document.querySelector('#username').value.trim();
+    const email = document.querySelector('#email').value.trim();
+    const password = document.querySelector('#password').value.trim();
+const response = await fetch('/api/users/', {
     method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(requestLogin)
-})
-.then(response => response.json())
-.then(data => {
-    if (data.success) {
- 
-    }else{
+    body: JSON.stringify({username, email, password }),
+    headers: { 'Content-Type': 'application/json' },
+  });
 
-    }
-})
-.catch(error => {
-    console.error('Error:', error);
-    alert('Failed to sign up')
-});
-}
+  if (response.ok) {
+    document.location.replace('/login');
+  } else {
+    alert(response.statusText);
+  }
+};
+
+//sign up for user
+document
+.querySelector('#signUpForm')
+.addEventListener('submit', signUp);
+
