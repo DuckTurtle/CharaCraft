@@ -1,9 +1,11 @@
-/* Open when someone clicks on Button */
 function openBox() {
-  document.getElementById("diceBox").style.width = "50%";
+  document.getElementById("diceBoxEl").style.width = "50%";
+  document
+    .querySelectorAll("canvas")
+    .forEach((el) => (el.style.width = "100%"));
 }
 
 /* Close when someone clicks on the "x" */
 function closeBox() {
-  document.getElementById("diceBox").style.width = "0%";
+  document.getElementById("diceBoxEl").style.width = "0%";
 }
