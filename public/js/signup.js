@@ -11,7 +11,7 @@ const response = await fetch('/api/users/', {
   });
 
   if (response.ok) {
-    document.location.replace('/UserPortal');
+    document.location.replace('/login');
   } else {
     alert(response.statusText);
   }
