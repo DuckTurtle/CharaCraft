@@ -5,18 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CharaCraft</title>
+    <!-- css styling sheets -->
+    <link rel="stylesheet" href="/css/jass.css">
+    <link rel="stylesheet" href="/css/style.css">
 
      <!-- google Fonts imported -->
      <link rel="preconnect" href="https://fonts.googleapis.com">
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
      <link href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap" rel="stylesheet">
- 
-    <!-- css styling sheets -->
-    <link rel="stylesheet" href="../../public/css/jass.css">
-    <link rel="stylesheet" href="../../public/css/style.css">
+   
 
     <!-- bootstrap imported -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    {{!-- DiceBox Script --}}
+    <script src="/js/diceBox.js"></script>
 
   </head>
 <body>
@@ -30,17 +33,22 @@
         </li>
       </ul>
       {{#unless logged_in}}
+      <a class="btn btn-outline-warning right my-1 mt-" href="#" role="button" onclick="openBox()">Dice Roll</a>
       <a class="btn btn-outline-warning right my-1 mt-" href="#" role="button">Sign Up</a>
       <a class="btn btn-outline-warning my-1" href="#" role="button">Login</a>
       {{/unless}}
       {{#if logged_in}}
-      <a class="btn btn-outline-warning my-1" href="#" role="button">Log Out</a>
+      <a class="btn btn-outline-warning my-1" href="#" role="button" id="logout">Log Out</a>
       {{/if}}
 
     </div>
   </div>
 </nav>
-{{{body}}}
+<main class="mainBackground">{{{body}}}
+  <div id="diceBox" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeBox()">&times;</a>
+  </div>
+</main>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </body>
 </html>

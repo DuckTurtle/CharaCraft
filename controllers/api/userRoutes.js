@@ -1,9 +1,11 @@
 const router = require("express").Router();
 const { User } = require("../../models");
+const { v4: uuidv4 } = require('uuid');
 
 router.post("/", async (req, res) => {
   try {
     const newUserData = await User.create({
+      id:uuidv4(),
       name: req.body.username,
       email: req.body.email,
       password: req.body.password,
@@ -23,7 +25,7 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const userData = await User.findOne({
-      where: { name: req.body.user },
+      where: { email: req.body.email },
     });
 
     if (!userData) {
@@ -48,6 +50,7 @@ router.post("/login", async (req, res) => {
 
       res.json({ user: userData, message: "You are now logged in!" });
     });
+   
   } catch (err) {
     res.status(400).json(err);
   }
