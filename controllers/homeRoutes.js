@@ -45,7 +45,14 @@ router.get("/signup", (req, res) => {
 
   res.render("signup");
 });
+router.get("/newCharacter", (req, res) => {
+  if (!req.session.logged_in) {
+    res.redirect("/login");
+    return;
+  }
 
+  res.render("newcharacter");
+});
 
 router.get("/UserPortal", checkAuth, async (req, res) => {
   try {
