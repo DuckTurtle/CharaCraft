@@ -1,35 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CharaCraft</title>
-
-    <link rel="stylesheet" href="../public/css/jass.css">
-    <link rel="stylesheet" href="../public/css/style.css">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
-  </head>
-  
 <body>
-  <div class ="main">
-    <div class="pad-top bottom pt-1 d-flex justify-content-center flex-wrap">
-        <h1 class="text-warning">CharaCraft</h1>
-    <form action= "login.php" method="post">
-        <div class="formcontainer" style="background-color:lightgray">
-            <h1 class="mx">CharaCraft Login</h1>
-            <label for = "username"><b>Username</b></label>
-            <input type = "text" placeholder="Enter Username" name="username" required>
-
-            <label for = "password"><b>Password</b></label>
-            <input type = "text" placeholder="Enter Password" name="password" required>
-
-            <button type= "submit" class="btn-login">Login</button>
+  <div class="pad-top bottom pt-1 d-flex justify-content-center flex-wrap">
+    <h1 class="text-warning text-center widthFull my-5">CharaCraft</h1>
+    <div class="row text-center col-8 align-self-center d-flex justify-content-center">
+      <form action="login.php" method="post">
+        <div class="formcontainer bg-warning border border-dark border-5 py-4">
+          <h1 class="">CharaCraft Login</h1>
+          <label for = "username"><b>Username</b></label>
+          <input type = "text" placeholder="Enter Username" name="username" id="username">
+          <label for = "password"><b>Password</b></label>
+          <input type = "text" placeholder="Enter Password" name="password" id="password" required>
+          <button type= "submit" class="btn-login" id="loginSubmit">Login</button>
         </div>
         <div class="container" style="background-color: lightgray;"></div>
-    </form>
-</div> 
+      </form>
+    </div>
+  </div> 
 </body>
 </html>

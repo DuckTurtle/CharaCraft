@@ -4,7 +4,7 @@ document.querySelector('.logoutcontainer')
 fetch('/logout', {
     method: 'POST',
     headers: {
-        'Conte-Type': 'application/josn'
+        'Conte-Type': 'application/json'
     }
 })
 .then(function(response) {
