@@ -88,6 +88,7 @@
   right: 45px;
   font-size: 60px;
   color: #ffc107;
+  z-index: 99;
 }
 
 @media screen and (max-height: 450px) {

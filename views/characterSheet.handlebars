@@ -21,35 +21,43 @@
   </div>
   
   <!-- main cahracter sheet-->
-  <div class="row col-5 align-self-center bg-warning justify-content-center g-0 border border-dark border-5 border-end-0 border-start-0">
-    <div>
-      <h2 class="text-center" id="campaignName" contenteditable="true">Campaign Name</h2>
-  </div>
-  <div>
-      <h2 class="text-center" id="characterName" contenteditable="true" >Character Name</h2>
-  </div>
-  <div>
-      <h3 class="text-center" id="race" contenteditable="true"> Race</h3>
-      <h3 class="text-center" id="level" contenteditable="true"> Level </h3>
-  </div>
-  <a class="btn btn-outline-primary my-1" id="saveBtn" href="#" role="button">Save</a>
-  <div class="row justify-content-around mb-4">
-      <div class="col-md-4 text-center">
+  <div
+      class="row col-5 align-self-center bg-warning justify-content-center g-0 border border-dark border-5 border-end-0 border-start-0"
+    >
+      <div>
+        <h2 class="text-center" id="campaignName" contenteditable="true">Campaign Name</h2>
+      </div>
+      <div>
+        <h2 class="text-center" id="characterName" contenteditable="true" >Character Name</h2>
+      </div>
+      <div>
+        <h3 class="text-center" id="race" contenteditable="true"> Race</h3>
+        <h3 class="text-center" id="class" contenteditable="true"> Class</h3>
+        <h3 class="text-center" id="level" contenteditable="true"> Level </h3>
+      </div>
+      <a class="btn btn-outline-primary my-1" id="saveBtn" href="#" role="button">Save</a>
+      <div class="row justify-content-around mb-4">
+        <div class="col-md-4 text-center">
           <label class="labelWidth" for="hitpoints" id="hitpoints">Hitpoints</label>
-          <br/>
+          <br />
           <input type="number" id="hitpoints" class="statWidth" value="18">
-      </div>
-      <div class="col-md-4 text-center">
+        </div>
+        <div class="col-md-4 text-center">
           <label class="labelWidth" for="armor" id="armorClass">Armor Class</label>
-          <br/>
+          <br />
           <input type="number" name="armor" id="armor" class="statWidth" required="required" placeholder="0" value="15">
-      </div>
-      <div class="col-md-4 text-center">
-          <label class="labelWidth" for="speed" id="speed">Speed</label>
+        </div>
+        <div class="col-md-4 text-center">
+          <label class="labelWidth" for="speed">Speed</label>
           <br/>
           <input type="number" name="speed" id="speed" class="statWidth" required="required" placeholder="0" value="30">
+        </div>
+        <div class="col-md-4 text-center">
+          <label class="labelWidth" for="initiative" >Initiative</label>
+          <br/>
+          <input type="number" name="initiative" id="initiative" class="statWidth" required="required" placeholder="0" value="30">
+        </div>
       </div>
-  </div>
   
   <hr>
   <div class="stats abilities d-flex justify-content-evenly my-3">
