@@ -1,15 +1,15 @@
 const router = require("express").Router();
 const { User } = require("../../models");
-const { v4: uuidv4 } = require('uuid');
+//const { v4: uuidv4 } = require('uuid');
 
 router.post("/", async (req, res) => {
   try {
-    const newUserData = await User.create({
-      id:uuidv4(),
-      name: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-    });
+    const newUserData = await User.create(req.body
+     // id:uuidv4(),
+      //name: req.body.username,
+      //email: req.body.email,
+     // password: req.body.password,
+    );
 
     req.session.save(() => {
       req.session.loggedIn = true;
