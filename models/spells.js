@@ -12,7 +12,7 @@ Spells.init(
       unique:true,
     },
     Damage: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
       }
   },
