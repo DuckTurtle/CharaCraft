@@ -34,6 +34,10 @@
   margin-right: 15px;
 }
 
+.widthFull{
+  width:100%
+}
+
 .statWidth {
   width: 100%;
   max-width: 100px;
