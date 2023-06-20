@@ -49,7 +49,7 @@ router.get("/signup", (req, res) => {
 
   res.render("signup");
 });
-router.get("/newCharacter", (req, res) => {
+router.get("/newCharacter", checkAuth, (req, res) => {
   if (!req.session.logged_in) {
     res.redirect("/login");
     return;

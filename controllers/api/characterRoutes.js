@@ -82,7 +82,6 @@ router.post("/newcharacter", async (req, res) => {
   try {
     const newCharacterData = await Characters.create({
       where: {
-      id: req.params.charID,
       name: req.body.cname,
       campaign_name: req.body.campaignName,
       class: req.body.cclass,
