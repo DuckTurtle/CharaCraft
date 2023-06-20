@@ -1,12 +1,13 @@
 //import List from './dndapi'
 //const { v4: genID } = require('uuid');
 
-let weaponBlock = document.querySelector('#weapondiv');
-let spellBlock = document.querySelector('#spelldiv');
-let newWeaponButton = document.querySelector('#newWeapon');
-let newSpellButton = document.querySelector('#newSpell');
-let newOtherButton = document.querySelector('#newOther');
-let saveChar = document.querySelector('#saveBnt');
+const weaponBlock = document.getElementById('weapondiv');
+const spellBlock = document.getElementById('spelldiv');
+const otherBlock = document.getElementById('otherdiv');
+/*const newWeaponButton = document.getElementById('newWeapon');
+const newSpellButton = document.getElementById('newSpell');
+const newOtherButton = document.getElementById('newOther');
+const saveChar = document.getElementById('saveCharacterBtn');*/
 
 
 function genID() {
@@ -48,16 +49,8 @@ function genID() {
           return gotThings
      // })
   };
-
-
-  function genID() {
-    var S4 = function() {
-       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-    };
-    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-  };
   
-  const deleteItem = (e, array,) => {
+  const deleteItem = (e) => {
       e.stopPropagation();
       const item = e.target;
       const formid = JSON.parse(item.parentElement.getAttribute('id'));
@@ -66,26 +59,27 @@ function genID() {
     
   
     //grabs item with e then collects its data and creates a weapon div.
-    const createWeaponBlock = async (e) =>{
-      e.stopPropagation();
+    const createWeaponBlock = async (event) =>{
+      event.preventDefault()
+      event.stopPropagation()
       //deletes old form and relaces with info.
-      const item = e.target;
+      const item = event.target;
       const wName = JSON.parse(item.siblings('.sellection').value());
       //api call to get info.
-      const itemInfo =  await List.getItem(wName);
+      const itemInfo =  await getItem(wName);
       const formid = JSON.parse(item.parentElement.getAttribute('value'));
       formid.remove();
   //creates the weapon block
       var div = document.createElement('tr');
       div.setAttribute('class',"weaponSlab")
       var title = document.createElement('th');
-      title.innerHTML(itemInfo.data.name);
-      title.setAttribute("name",`${itemInfo.data.name}`)
+      title.innerHTML(itemInfo.name);
+      title.setAttribute("name",`${itemInfo.name}`)
       title.setAttribute('scope',"row");
       if(itemInfo.damage.damage_dice===undefined){
         div.setAttribute("value", `${itemInfo.desc[1]} ${itemInfo.desc[2]}`);
       } else {
-        div.setAttribute("value", itemInfo.data.damage.damage_dice);
+        div.setAttribute("value", itemInfo.damage.damage_dice);
       }
       //on hover function that displays damage info
       div.addEventListener("mouseover", () => {
@@ -213,12 +207,13 @@ function genID() {
       form.append(delBtnEl);
       //adds save bnt
       const saveBnt = document.createElement('i');
-      saveBnt.setAttribute("id", "smallSavBnt");
+      saveBnt.setAttribute("id", "weaponSavBnt");
       saveBnt.setAttribute('class',
         'savebutton'
       );
-      saveBnt.setAttribute('type',"submit");
-      saveBnt.addEventListener('submit', createWeaponBlock(myChoice.value));
+      form.append(saveBnt);
+      weaponBlock.append(form);
+      saveBnt.addEventListener('click', createWeaponBlock);
       form.append(saveBnt);
       weaponBlock.append(form);
   };
@@ -418,8 +413,23 @@ function genID() {
     await saveSpells();
     await saveToDB();
     
-  }
-  newWeaponButton.addEventListener('click',newWeapon);
-  newSpellButton.addEventListener('click',newSpell);
-  newOtherButton.addEventListener('click',newOther);
-  savebnt.addEventListener('click',saveCharacter);
+  };
+ document
+ .getElementById('newWeapon')
+ .addEventListener('click', newWeapon);
+ document
+ .getElementById('newSpell')
+ .addEventListener('click', newSpell);
+ document
+ .getElementById('newOther')
+ .addEventListener('click', newOther);
+ document
+ .getElementById('saveCharacterBtn')
+ .addEventListener('click', saveCharacter);
+  
+ 
+ 
+ /*newWeaponButton.addEventListener('click', newWeapon);
+  newSpellButton.addEventListener('click', newSpell);
+  newOtherButton.addEventListener('click', newOther);
+  saveChar.addEventListener('click', saveCharacter);*/
