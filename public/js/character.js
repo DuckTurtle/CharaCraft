@@ -310,45 +310,40 @@ const saveToDB = async(e) => {
   //gets others name
   let currentOther = [];
 await $('.otherSlab').map( () => {
-  let oId = $(this).getAttribute('id')
-  currentOther.push({
-    id:oId,
-  });
+  let oId = $(this).getAttribute('id');
+  currentOther.push(oId);
 })
 //gets spells name
 let currentSpells = [];
 await $('.spellSlab').map( () => {
   let sName = $(this).childElement.getAttribute('name');
-  currentSpells.push({
-    name:sName,
-  });
+  currentSpells.push(sName);
 });
   // gets weapons names
   let currentWeapons = [];
 await $('.weaponSlab').map( () => {
   let wName = $(this).childElement.getAttribute('name');
-  currentWeapons.push({
-    name:wName,
-  });
+  currentWeapons.push(wName);
 });
-let cname = $('');
-let campaignName= $('');
-let cclass= $('');
-let cLevel= $('');
-let crace= $('');
-let chp= $('');
-let armorClass= $('');
-let cinitiative= $('');
-let cspeed= $('');
-let cstrength= $('');
-let cdexterity= $('');
-let cconstitution= $('');
-let cintelligence= $('');
-let cwisdom= $('');
-let ccharisma= $('');
+//grabs needed info for post.
+let cname = $('#characterName').value.trim();
+let campaignName= $('#campaignName').value.trim();
+let cclass= $('#class').value.trim();
+let cLevel= $('#level').value.trim();
+let crace= $('#race').value.trim();
+let chp= $('#hitpoints').value.trim();
+let armorClass= $('#armorClass').value.trim();
+let cinitiative= $('#initiative').value.trim();
+let cspeed= $('#speed').value.trim();
+let cstrength= $('#str').value.trim();
+let cdexterity= $('#dex').value.trim();
+let cconstitution= $('#con').value.trim();
+let cintelligence= $('#int').value.trim();
+let cwisdom= $('#wis').value.trim();
+let ccharisma= $('#cha').value.trim();
 if (charID && cname && campaignName && cclass && cLevel && crace && chp && armorClass && cinitiative &&
   cspeed && cstrength && cdexterity && cconstitution && cintelligence && cwisdom && ccharisma) {
-  const response = await fetch(`/api/characters`, {
+  const response = await fetch(`/api/characters/character`, {
     method: 'POST',
     body: JSON.stringify({charID,cname, campaignName,cclass,cLevel,crace,chp,armorClass,cinitiative,
       cspeed, cstrength, cdexterity, cconstitution, cintelligence, cwisdom, ccharisma,

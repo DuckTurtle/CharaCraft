@@ -31,7 +31,9 @@ router.get("/", async (req, res) => {
 
 router.get("/login", (req, res) => {
   if (req.session.logged_in) {
-    res.redirect("/UserPortal");
+    res.redirect("/UserPortal",{
+      logged_in: req.session.logged_in,
+    });
     return;
   }
 
@@ -39,7 +41,9 @@ router.get("/login", (req, res) => {
 });
 router.get("/signup", (req, res) => {
   if (req.session.logged_in) {
-    res.redirect("/UserPortal");
+    res.redirect("/UserPortal", {
+      logged_in: req.session.logged_in,
+    });
     return;
   }
 
@@ -51,7 +55,10 @@ router.get("/newCharacter", (req, res) => {
     return;
   }
 
-  res.render("newcharacter");
+  res.render("newcharacter",{
+    user:req.session.user_id,
+    logged_in: req.session.logged_in,
+  });
 });
 
 router.get("/UserPortal", checkAuth, async (req, res) => {

@@ -9,6 +9,6 @@ router.use("/users", userRoutes);
 router.use("/weapons", weaponRoutes);
 router.use("/spells", spellRoutes);
 router.use("/other", otherRoutes);
-router.use("/character", characterRoutes);
+router.use("/characters", characterRoutes);
 
 module.exports = router;
