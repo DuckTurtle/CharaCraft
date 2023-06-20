@@ -34,18 +34,32 @@
         <li class="nav-item">
           {{#if logged_in}}
           <a class="nav-link text-warning" href="/UserPortal">Characters</a>
+          {{/if}}
+        </li>
+        <li>
+          {{#if logged_in}}
           <a class="nav-link text-warning" href="/newCharacter">Create New Character</a>
           {{/if}}
         </li>
       </ul>
-       <a class="btn btn-outline-warning right my-1 mt-" href="#" role="button" onclick="openBox()">Dice Roll</a>
-      {{#unless logged_in}}
-      <a class="btn btn-outline-warning right my-1 mt-" href="/signup" role="button" id="signUpBtn">Sign Up</a>
-      <a class="btn btn-outline-warning my-1" href="/login" role="button" id="loginBtn">Login</a>
-      {{/unless}}
-      {{#if logged_in}}
-      <a class="btn btn-outline-warning my-1" role="button" id="logout">Log Out</a>
-      {{/if}}
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li>
+          <a class="btn btn-outline-warning right my-1 mt-" href="#" role="button" onclick="openBox()">Dice Roll</a>
+        </li>
+        {{#unless logged_in}}
+        <li>
+          <a class="btn btn-outline-warning right my-1 mt-" href="/signup" role="button" id="signUpBtn">Sign Up</a>
+        </li>
+        <li>
+          <a class="btn btn-outline-warning my-1" href="/login" role="button" id="loginBtn">Login</a>
+        </li>
+        {{/unless}}
+        {{#if logged_in}}
+        <li>
+          <a class="btn btn-outline-warning my-1" role="button" id="logout">Log Out</a>
+        </li>
+        {{/if}}
+      </ul>
 
     </div>
   </div>
