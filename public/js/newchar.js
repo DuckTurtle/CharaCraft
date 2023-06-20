@@ -179,8 +179,11 @@ function genID() {
   
     //creats a new weapon form.
     const newWeapon = async () =>  {
+      var div = document.createElement('tr');
       var form =  document.createElement('form');
+      var formdiv = document.createElement('div');
       form.setAttribute('value', genID());
+      form.setAttribute("class", "formBlock");
       var myChoice =  document.createElement('select');
       myChoice.setAttribute('required', 'true');
       myChoice.setAttribute('class', 'sellection');
@@ -196,7 +199,7 @@ function genID() {
           var object =  document.createElement('option').value(element.url).innerHTML(element.name).setAttribute('id', element.index)
            myChoice.append(object);
       });*/
-      form.append(myChoice);
+      formdiv.append(myChoice);
       const delBtnEl = document.createElement('i');
       //adds delete button.
       delBtnEl.setAttribute("id", "delBnt");
@@ -204,18 +207,18 @@ function genID() {
         'deletebutton'
       );
       delBtnEl.addEventListener('click', deleteItem);
-      form.append(delBtnEl);
+      formdiv.append(delBtnEl);
       //adds save bnt
       const saveBnt = document.createElement('i');
       saveBnt.setAttribute("id", "weaponSavBnt");
       saveBnt.setAttribute('class',
         'savebutton'
       );
-      form.append(saveBnt);
-      weaponBlock.append(form);
       saveBnt.addEventListener('click', createWeaponBlock);
-      form.append(saveBnt);
-      weaponBlock.append(form);
+      formdiv.append(saveBnt);
+      form.append(formdiv);
+      div.append(form);
+      weaponBlock.append(div);
   };
   
   //creats spell selection form.

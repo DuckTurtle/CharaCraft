@@ -90,6 +90,11 @@
   color: #ffc107;
   z-index: 99;
 }
+.formBlock {
+  position: relative;
+  z-index: 9000;
+  display:block !important;
+}
 
 @media screen and (max-height: 450px) {
   .overlay a {
