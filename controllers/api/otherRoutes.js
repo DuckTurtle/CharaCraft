@@ -1,34 +1,31 @@
 const router = require("express").Router();
 const { Other } = require("../../models");
 
-router.post("/other", async (req, res) => {
+router.post("/", async (req, res) => {
     try {
-        const loadNewOther = async () =>{
-            await Other.sync().then(function() {
-            Other.findOrCreate({
-                where: {
+    const newOther = await Other.sync({alter: true}).then(() => {
+        console.log(req.body);
+        Other.findOrCreate({
+            where: {id: req.body.id.trim()},
+            defaults: {
                     id: req.body.id,
-                    name: req.body.name.trim(),
-                    damage: req.body.damage.trim(),
+                    name: req.body.oName.trim(),
+                    description: req.body.oDec.trim(),
                     user_id: req.session.user_id,
                 }
-            })
-            .then(function(result) {
-                var other = result[0], 
-                  created = result[1]; 
-          
-                if (!created) { // false if weapon already exists and was not created.
-                  console.log('spell already exists');
-                }
-            })
         })
-        }
-        const otherData = req.body.map()
-            .forEach(loadNewOther);       
-    }
-    catch (err) {
-        res.status(500).json(err);
-    }
+        .then((data) => {
+            console.log(data)
+            console.log(newOther);
+            res.status(200).json(newOther);
+        })
+    });
+    
+    
+}
+catch (err) {
+    res.status(500).json(err);
+}
 
 });
 module.exports = router;

@@ -5,6 +5,7 @@ const {
   Charspell,
   CharOther,
 } = require("../../models");
+const checkAuth = require("../../utils/auth");
 //updates older character data
 router.post("/character", async (req, res) => {
   try {
@@ -16,7 +17,8 @@ router.post("/character", async (req, res) => {
     });
     //updated the information
     const newCharacterData = await Characters.create({
-      where: {
+      where: { id: req.params.charID},
+      defaults: {
         id: req.params.charID,
         name: req.body.cname,
         campaign_name: req.body.campaignName,
@@ -38,50 +40,56 @@ router.post("/character", async (req, res) => {
         otherId: req.body.currentOther,
         user_id: req.session.user_id,
       },
-    });
-    //links spells to charater through Charaspells
-    if (req.body.spellNames.length) {
-      const charSpellIdArr = req.body.spellNames.map((spell_name) => {
-        return {
-          character_id: character.id,
-          spell_name,
-        };
-      });
-      return Charspell.bulkCreate(charSpellIdArr);
+    }).then(character => {
+      //links spells to charater
+      if (req.body.currentSpells.length) {
+        const charSpellIdArr = req.body.currentSpells.map((spell_id) => {
+          return {
+            character_id: character.id,
+            spell_id,
+          };
+        });
+        return Charspell.bulkCreate(charSpellIdArr);
+      }
+      res.status(200).json(character);
+      //links weapons to charater
+      if (req.body.currentWeapons.length) {
+        const charWeaponIdArr = req.body.currentWeapons.map((weapon_id) => {
+          return {
+            character_id: character.id,
+            weapon_id,
+          };
+        });
+        return CharWeapon.bulkCreate(charWeaponIdArr);
+      }
+      res.status(200).json(character);
+      // links other to character
+      if (req.body.currentOther.length) {
+        const charOtherIdArr = req.body.currentOther.map((other_Id) => {
+          return {
+            character_id: character.id,
+            other_Id,
+          };
+        });
+        return CharOther.bulkCreate(charOtherIdArr);
+      }
+      res.status(200).json(character);
+    })
+    .then((charOtherIdArr) => res.status(200).json(charOtherIdArr))
+      res.status(200).json(newCharacterData);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
     }
-    //links weapons to the character
-    if (req.body.weaponName.length) {
-      const charWeaponIdArr = req.body.weaponName.map((weapon_name) => {
-        return {
-          character_id: character.id,
-          weapon_name,
-        };
-      });
-      return CharWeapon.bulkCreate(charWeaponIdArr);
-    }
-    //links other to charater
-    if (req.body.otherId.length) {
-      const charOtherIdArr = req.body.otherId.map((other_Id) => {
-        return {
-          character_id: character.id,
-          other_Id,
-        };
-      });
-      return CharOther.bulkCreate(charOtherIdArr);
-    }
-
-    res.status(200).json(newCharacterData);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
+  });
 
 //adds new charater to db
 router.post("/newcharacter", async (req, res) => {
   try {
     console.log(req.body);
     const newCharacterData = await Characters.create({
+      defaults: {
+      id: req.body.cid,
       name: req.body.cname,
       campaign_name: req.body.campaignName,
       class: req.body.cclass,
@@ -101,31 +109,33 @@ router.post("/newcharacter", async (req, res) => {
       weaponName: req.body.currentWeapons,
       otherId: req.body.currentOther,
       user_id: req.session.user_id,
-    });
+      }
+    }).then(character => {
     //links spells to charater
-    if (req.body.spellNames.length) {
-      const charSpellIdArr = req.body.spellNames.map((spell_name) => {
+    if (req.body.currentSpells.length) {
+      const charSpellIdArr = req.body.currentSpells.map((spell_id) => {
         return {
           character_id: character.id,
-          spell_name,
+          spell_id,
         };
       });
       return Charspell.bulkCreate(charSpellIdArr);
     }
+    res.status(200).json(character);
     //links weapons to charater
-    if (req.body.weaponName.length) {
-      const charWeaponIdArr = req.body.weaponName.map((weapon_name) => {
+    if (req.body.currentWeapons.length) {
+      const charWeaponIdArr = req.body.currentWeapons.map((weapon_id) => {
         return {
           character_id: character.id,
-          weapon_name,
+          weapon_id,
         };
       });
       return CharWeapon.bulkCreate(charWeaponIdArr);
     }
-
+    res.status(200).json(character);
     // links other to character
-    if (req.body.otherId.length) {
-      const charOtherIdArr = req.body.otherId.map((other_Id) => {
+    if (req.body.currentOther.length) {
+      const charOtherIdArr = req.body.currentOther.map((other_Id) => {
         return {
           character_id: character.id,
           other_Id,
@@ -133,10 +143,34 @@ router.post("/newcharacter", async (req, res) => {
       });
       return Charspell.bulkCreate(charOtherIdArr);
     }
-
-    res.status(200).json(newCharacterData);
+    res.status(200).json(character);
+  })
+  .then((charOtherIdArr) => res.status(200).json(charOtherIdArr))
+    res.status(200);
   } catch (err) {
     console.log(err);
+    res.status(500).json(err);
+  }
+});
+router.delete('/:id', checkAuth, async (req, res) => {
+  console.log({id: req.params.id,
+    user_id: req.session.user_id,})
+  try {
+    const characterData = await Characters.destroy({
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id,
+      },
+    })
+    .then((TheGone) => {
+      if (!TheGone) {
+        res.status(404).json({ message: 'No character found with this id!' });
+        return;
+      }
+  
+      res.status(200).json(TheGone);
+    })
+  } catch (err) {
     res.status(500).json(err);
   }
 });

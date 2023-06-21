@@ -1,4 +1,3 @@
-
 const weaponBlock = document.getElementById('weapondiv');
 const spellBlock = document.getElementById('spelldiv');
 const otherBlock = document.getElementById('otherdiv');
@@ -284,7 +283,7 @@ const saveToDB = async (e) => {
   JSON.stringify(currentWeapons);
   JSON.stringify(currentSpells);
   JSON.stringify(currentOther);
-  let cid = genID();
+  let charID = document.querySelector('#char_ID').textContent.trim();
   let cname = document.querySelector("#character").textContent.trim();
   let campaignName = document.querySelector("#campaignName").textContent.trim();
   let cclass = document.querySelector("#class").textContent.trim();
@@ -303,6 +302,7 @@ const saveToDB = async (e) => {
   let cwisdom = document.querySelector("#wis").textContent.trim();
   let ccharisma = document.querySelector("#cha").textContent.trim();
   if (
+    charID &&
     cname &&
     campaignName &&
     cclass &&
@@ -322,7 +322,7 @@ const saveToDB = async (e) => {
     const response = await fetch(`/api/characters/newcharacter`, {
       method: "POST",
       body: JSON.stringify({
-        cid,
+        charID,
         cname,
         campaignName,
         cclass,

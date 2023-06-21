@@ -6,9 +6,9 @@ class Characters extends Model {}
 Characters.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -22,7 +22,7 @@ Characters.init(
       allowNull: false,
     },
     level: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "10",
     },
@@ -35,47 +35,47 @@ Characters.init(
       allowNull: false,
       defaultValue: "10",
     },
-    armor_class: {
+  armor_class: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "10",
     },
-    initiative: {
+  initiative: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "10",
     },
-    speed: {
+  speed: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "10",
     },
-    strength: {
+  strength: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "10",
     },
-    dexterity: {
+  dexterity: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "10",
+  },
+  constitution: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "10",
     },
-    constitution: {
+  intelligence: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "10",
     },
-    intelligence: {
+  wisdom: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "10",
     },
-    wisdom: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: "10",
-    },
-    charisma: {
+  charisma: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "10",

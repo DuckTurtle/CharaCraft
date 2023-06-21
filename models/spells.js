@@ -6,14 +6,19 @@ class Spells extends Model {}
 
 Spells.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+    },
     name: {
       type: DataTypes.STRING,
-      primaryKey: true,
+      allowNull: false,
       unique:true,
     },
     Damage: {
-        type: DataTypes.TEXT,
-        allowNull: true,
+        type: DataTypes.STRING(1245),
+        allowNull: false,
       }
   },
   {
