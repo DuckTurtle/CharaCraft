@@ -6,10 +6,9 @@ class Characters extends Model {}
 Characters.init(
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -25,61 +24,61 @@ Characters.init(
     level: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 10,
+      defaultValue: "10",
     },
     race: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     hp: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 10,
+      defaultValue: "10",
     },
-  armor_class: {
-      type: DataTypes.INTEGER,
+    armor_class: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 10,
+      defaultValue: "10",
     },
-  initiative: {
-      type: DataTypes.INTEGER,
+    initiative: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 10,
+      defaultValue: "10",
     },
-  speed: {
-      type: DataTypes.INTEGER,
+    speed: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 10,
+      defaultValue: "10",
     },
-  strength: {
-      type: DataTypes.INTEGER,
+    strength: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 10,
+      defaultValue: "10",
     },
-  dexterity: {
-      type: DataTypes.INTEGER,
+    dexterity: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 10,
-  },
-  constitution: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 10,
+      defaultValue: "10",
     },
-  intelligence: {
-      type: DataTypes.INTEGER,
+    constitution: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 10,
+      defaultValue: "10",
     },
-  wisdom: {
-      type: DataTypes.INTEGER,
+    intelligence: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 10,
+      defaultValue: "10",
     },
-  charisma: {
-      type: DataTypes.INTEGER,
+    wisdom: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 10,
+      defaultValue: "10",
+    },
+    charisma: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "10",
     },
 
     user_id: {
