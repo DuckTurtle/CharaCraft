@@ -118,10 +118,6 @@ router.get("/character/:id", async (req, res) => {
     const characterData = await Characters.findByPk(req.params.id, {
       include: [
         {
-          model: User,
-          attributes: ["name"],
-        },
-        {
           model: Spells,
           through: Charspell,
         },
@@ -135,12 +131,21 @@ router.get("/character/:id", async (req, res) => {
         },
       ],
     });
-
+    const user = await User.findAll({
+      where: {
+        id: req.session.user_id,
+      },
+    });
     // Serialize data so the template can read it
-    const character = characterData.map((char) => char.get({ plain: true }));
+    const character = characterData.dataValues
+      console.log(character);
+    const userData= user.map((char) => char.get({ plain: true }));
 
+    //assigns User's username
+    const userName = userData[0].name
     // Pass serialized data and session flag into template
     res.render("characterSheet", {
+      userName,
       character,
       logged_in: req.session.logged_in,
     });
