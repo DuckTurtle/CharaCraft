@@ -19,6 +19,45 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="newSpell" tabindex="-1" aria-labelledby="newSpellLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="newSpellLabel">Spell</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="mySpell">
+        <label for="weapon-select" class="form-label">Pick Your Spell</label>
+        <select type="weapon" class="form-control" id="spell-select"></select>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveSpell">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="newOther" tabindex="-1" aria-labelledby="newOtherLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="newOtherLabel">Other</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="myOther">
+        <label for="weapon-select" class="form-label">Enter your custom Info</label>
+        <input type="text" id="otherTitle" placeholder="Title"><br>
+        <input type="text" id="otherDec" placeholder="Discription"><br>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveOther">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="main fullLength d-flex justify-content-center">
   <div class="row justify-content-center align-content-center">
@@ -26,7 +65,7 @@
     <div class="row col-2 d-flex justify-content-center bg-warning justify-content-center g-0 border border-dark border-5">
       <div>
         <h3 class="text-center text-decoration-underline"><strong>SPELLS</strong></h3>
-        <a class="btn btn-outline-primary my-1 d-flex justify-content-center my-3" id="newSpell" href="#" role="button">add a spell</a>
+        <a class="btn btn-outline-primary my-1 d-flex justify-content-center my-3" type="button" role="button" data-bs-toggle="modal" data-bs-target="#newSpell">add a spell</a>
       <table class="table border border-dark border-5 border-end-0 border-start-0 table-dark table-striped">
         <thead>
           <tr>
@@ -114,7 +153,7 @@
       <div class="row col-2 d-flex bg-warning justify-content-center g-0 border border-dark border-5">
         <div>
           <h3 class="text-center text-decoration-underline" >Weapons</h3>
-          <a class="btn btn-outline-primary my-1 d-flex justify-content-center my-3" type="button" id="newWeapon" role="button" data-bs-toggle="modal" data-bs-target="#newWeapon">Add a Weapon</a>
+          <a class="btn btn-outline-primary my-1 d-flex justify-content-center my-3" type="button" role="button" data-bs-toggle="modal" data-bs-target="#newWeapon">Add a Weapon</a>
         </div>
       <table class="table border border-dark border-5 border-end-0 border-start-0 table-dark table-striped">
           <thead>
@@ -131,7 +170,7 @@
   <div class="row col-2 d-flex bg-warning justify-content-center g-0 border border-dark border-5">
     <div>
       <h3 class="text-center text-decoration-underline"><strong>Other</strong></h3>
-      <a class="btn btn-outline-primary my-1 d-flex justify-content-center my-3" id="newOther" href="#" role="button">add Item</a>
+      <a class="btn btn-outline-primary my-1 d-flex justify-content-center my-3" type="button" role="button" data-bs-toggle="modal" data-bs-target="#newOther">add Item</a>
           <table class="table border border-dark border-5 border-end-0 border-start-0 table-dark table-striped">
         <thead>
           <tr>
