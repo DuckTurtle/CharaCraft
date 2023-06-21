@@ -20,11 +20,11 @@ Charspell.init(
         unique: false
       }
     },
-    spell_name: {
+    spell_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'spell',
-        key: 'name',
+        key: 'id',
         unique: false
       }
     }

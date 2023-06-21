@@ -3,26 +3,24 @@ const { Weapon } = require("../../models");
 
 router.post("/", async (req, res) => {
     try {
-        const loadNewWeapons = async () =>{
-            await Weapon.sync().then(function() {
+        const newWeapon = await Weapon.sync({alter: true}).then(() => {
+            console.log(req.body);
             Weapon.findOrCreate({
-                where: {
+                where: {name: req.body.wName.trim()},
+                defaults: {
+                    id: req.body.id,
                     name: req.body.wName.trim(),
                     damage: req.body.wDamage.trim(),
                 }
             })
-            .then(function(result) {
-                var weapon = result[0], 
-                  created = result[1]; 
-                  console.log(req.body);
-                if (!created) { // false if weapon already exists and was not created.
-                  console.log('weapon already exists');
-                }
+            .then((data) => {
+                console.log(data)
+                console.log(newWeapon);
+                res.status(200).json(newWeapon);
             })
-        })
-        }
-        const weaponData = req.body.map()
-            .forEach(loadNewWeapons);       
+        });
+        
+        
     }
     catch (err) {
         res.status(500).json(err);

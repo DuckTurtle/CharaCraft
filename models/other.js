@@ -6,17 +6,17 @@ class Other extends Model {}
 Other.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
-      autoIncrement:true,
     },
     name: {
       type: DataTypes.STRING,
     },
     description: {
-        type: DataTypes.TEXT,
-        allowNull: false,
+      type: DataTypes.STRING(1245),
+      allowNull: false,
       },
       user_id: {
         type: DataTypes.UUID,

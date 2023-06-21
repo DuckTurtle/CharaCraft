@@ -6,7 +6,13 @@ const newWModal = document.getElementById('newWeapon');
 const init = () => {
   loadList();
 };
-
+const timer = () => {
+  setTimeout(async () =>{ 
+    await saveToDB();
+    return true; 
+}, 5000);
+}
+  
 function genID() {
   var S4 = function () {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
@@ -30,14 +36,16 @@ function genID() {
 
 const getCall = async (call) => {
   var dndAPI = "https://www.dnd5eapi.co" + call;
-  let dataResults = await fetch(dndAPI).then(function (response) {
-    var results = response.json();
-    console.log(results);
-    return results;
-  });
-  let data = await dataResults;
-  console.log(data);
-  return data;
+  let dataResults = await fetch(dndAPI)
+  .then(function(response){
+      var results = response.json();
+      console.log(results);
+          return results;
+      });
+      let data = await dataResults;
+      console.log(data);
+      return data;
+
 };
 
 //takes api call and converts it to list
@@ -57,7 +65,7 @@ const getspell = async (call) => {
   const item = call;
   let got = await getCall(item);
   console.log(got);
-  const gotThings = got.map(({ index, name, url }) => ({
+  const gotThings = got.results.map(({ index, name, url }) => ({
     index: index,
     name: name,
     value: url,
@@ -79,18 +87,19 @@ let got = await getCall(item);
       formid.remove();
     };
     
-  
     //grabs item with e then collects its data and creates a weapon div.
     const createWeaponBlock = async (event) =>{
       event.preventDefault()
       event.stopPropagation()
       //deletes old form and relaces with info.
-      const item = document.getElementById('weapon-select')
+      const item = document.getElementById('weapon-select');
+      const num= item.options[item.selectedIndex].id
       const wName = item.value;
       //api call to get info.
       const itemInfo =  await getItem(wName);
       //creates the weapon block
       var div = document.createElement('tr');
+      div.setAttribute("id", num);
       div.setAttribute('class',"weaponSlab gethoverd")
       var title = document.createElement('th');
       title.textContent = itemInfo.name;
@@ -98,7 +107,7 @@ let got = await getCall(item);
       title.setAttribute('scope',"row");
       var discription = document.createElement('td'); 
         //discription.setAttribute("class","hoverinfo");
-      if(undefined == itemInfo.damage){
+      if(num >= "37"){
         discription.textContent = `${itemInfo.desc[1]} ${itemInfo.desc[2]}`;
       } else {
         discription.textContent = itemInfo.damage.damage_dice;
@@ -122,10 +131,11 @@ let got = await getCall(item);
     //deletes old form and relaces with info.
     const item = document.getElementById('spell-select')
     const wName = item.value;
-    console.log(wName)
+    const num= item.options[item.selectedIndex].id
     //api call to get info.
     const itemInfo =  await getItem(wName);
     var div = document.createElement('tr');
+    div.setAttribute("id", num)
     div.setAttribute('class',"spellSlab gethoverd")
     var title = document.createElement('th');
     title.textContent = itemInfo.name;
@@ -151,7 +161,7 @@ let got = await getCall(item);
     const desc = document.getElementById('otherDec').value;
     const formid = genID();
   //creates the spell block
-    var div =  document.createElement('tr');
+    const div = document.createElement('tr');
     div.setAttribute("id", formid);
     div.setAttribute('class', "otherSlab")
     var title =  document.createElement('th');
@@ -173,80 +183,65 @@ let got = await getCall(item);
      desc.textContent = ""
   };
   
-  const saveWeapons = async () => {
+  const saveWeapons = () => {
   var wep = document.querySelectorAll('.weaponSlab');
-  await wep.forEach(()=> {
+   wep.forEach(async ()=> {
     console.log(wep)
+    let id = wep[0].id
     let wName = wep[0].children[0].innerText
     let wDamage = wep[0].children[1].innerText
-    const sendEM = async () => {
-     await fetch('api/weapons/',{
+     await fetch('/api/weapons',{
       method: 'POST',
-      body: JSON.stringify({wName, wDamage}),
+      body: JSON.stringify({id,wName, wDamage}),
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    if (sendEM.ok) {
-      console.log('Weapons saved');
-    } else {
-      alert('Failed to Save Character');
-    }
-  }})
+  })
    };
-  const saveSpells = async(e) => {
+  const saveSpells = () => {
     var wep = document.querySelectorAll('.spellSlab');
-    await wep.forEach(()=> {
-      console.log(wep)
-      let wName = wep[0].children[0].innerText
+     wep.forEach(async () => {
+      console.log(wep[0].id)
+      let id = wep[0].id
+      let sName = wep[0].children[0].innerText
       let sDec = wep[0].children[1].innerText
-      const sendEM = async () => {
-       await fetch('api/spells/',{
+      console.log(JSON.stringify({id, sName, sDec}));
+       await fetch('/api/spells',{
         method: 'POST',
-        body: JSON.stringify({wName, sDec}),
+        body: JSON.stringify({id, sName, sDec}),
         headers: {
           'Content-Type': 'application/json',
-        },
-      });
-      if (sendEM.ok) {
-        console.log('spells saved');
-      } else {
-        alert('Failed to Save Character');
-      }
-    }})
-     };
-  const saveOther = async(e) => {
+        }
+        });
+    });
+  };
+  const saveOther = (e) => {
     var wep = document.querySelectorAll('.otherSlab');
-    await wep.forEach(()=> {
+     wep.forEach(async () => {
       console.log(wep)
       let id = wep[0].id
-      let wName = wep[0].children[0].innerText
-      let sDec = wep[0].children[1].innerText
-      const sendEM = async () => {
-       await fetch('api/other/',{
+      let oName = wep[0].children[0].innerText
+      let oDec = wep[0].children[1].innerText
+       await fetch('/api/other',{
         method: 'POST',
-        body: JSON.stringify({id, wName, sDec}),
+        body: JSON.stringify({id, oName, oDec}),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      if (sendEM.ok) {
-        console.log('spells saved');
-      } else {
-        alert('Failed to Save Character');
-      }}
     })
      };
 
 
 const loadList = async () => {
-  var theChoice =  document.getElementById('weapon-select');
-    let spellChoice = await getfirst('/api/spells');
+  var theChoice =  document.getElementById('spell-select');
+    let spellChoice = await getspell('/api/spells');
       for (var i=0;i<spellChoice.length; i++){
         var object =  document.createElement('option')
         object.setAttribute("value", spellChoice[i].value)
         object.textContent = spellChoice[i].name
-        object.setAttribute('id', spellChoice[i].index);
+        object.setAttribute('id', [i]);
            theChoice.append(object);
       };
   
@@ -256,30 +251,40 @@ const loadList = async () => {
       var object =  document.createElement('option')
       object.setAttribute("value", choice[i].value);
       object.textContent = choice[i].name;
-      object.setAttribute('id', choice[i].index);
+      object.setAttribute('id', [i]);
          myChoice.append(object);
     }
   }
   const saveToDB = async(e) => {
     //gets others name
     let currentOther = [];
-  await document.querySelectorAll('.otherSlab').map( () => {
-    let oId = this.getAttribute('id');
-    currentOther.push(oId);
-  });
+    var wyp = document.querySelectorAll('.otherSlab');
+    await wyp.forEach(()=> {
+      console.log(wyp)
+      let oID = wyp[0].id
+      currentOther.push(oID);
+    });
   //gets spells name
   let currentSpells = [];
-  document.querySelectorAll(".spellSlab").forEach((el) => {
-    let sName = el.childElement.getAttribute("name");
+  var wop = document.querySelectorAll('.spellSlab');
+  await wop.forEach(()=> {
+    console.log(wop)
+    let sName = wop[0].id
     currentSpells.push(sName);
   });
   // gets weapons names
   let currentWeapons = [];
-  document.querySelectorAll(".weaponSlab").forEach((el) => {
-    let wName = el.childElement.getAttribute("name");
+  var wep = document.querySelectorAll('.weaponSlab');
+  await wep.forEach(()=> {
+    console.log(wep)
+    let wName = wep[0].id
     currentWeapons.push(wName);
   });
   //grabs needed info for post.
+  JSON.stringify(currentWeapons);
+  JSON.stringify(currentSpells);
+  JSON.stringify(currentOther);
+  let cid = genID();
   let cname = document.querySelector("#character").textContent.trim();
   let campaignName = document.querySelector("#campaignName").textContent.trim();
   let cclass = document.querySelector("#class").textContent.trim();
@@ -317,6 +322,7 @@ const loadList = async () => {
     const response = await fetch(`/api/characters/newcharacter`, {
       method: "POST",
       body: JSON.stringify({
+        cid,
         cname,
         campaignName,
         cclass,
@@ -342,6 +348,7 @@ const loadList = async () => {
     });
     if (response.ok) {
       console.log("Character saved");
+      document.location.replace(`/character/${cid}`)
     } else {
       alert("Failed to Save Character");
     }
@@ -354,11 +361,12 @@ const saveCharacter = async (e) => {
   e.stopPropagation();
   await saveWeapons();
   await saveOther();
-  await saveSpells();
-  await saveToDB();
+  await saveSpells()
+  await timer()
+  //await saveToDB();
+  
   
 };
-init();
 document
 .getElementById('saveWeapon')
 .addEventListener('click', createWeaponBlock);

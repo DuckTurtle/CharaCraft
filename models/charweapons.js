@@ -20,11 +20,11 @@ CharWeapons.init(
         unique: false
       }
     },
-    weapon_name: {
+    weapon_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'weapon',
-        key: 'name',
+        key: 'id',
         unique: false
       }
     }
