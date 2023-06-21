@@ -65,18 +65,6 @@ const getspell = async (call) => {
   console.log(gotThings);
   return gotThings;
 };
-const getItem = async (call) => {
-  const item = call;
-  let got = await getCall(item);
-  console.log(got);
-        const gotThings = got.results.map(({index, name, url}) => ({
-            index: index,
-            name: name,
-            value: url
-        }));
-        console.log(gotThings);
-        return gotThings;
-};
 const getItem = async (call) =>{
   const item = call
 let got = await getCall(item);
