@@ -71,6 +71,7 @@ router.get("/UserPortal", checkAuth, async (req, res) => {
     });
 
     // Serialize data so the template can read it
+
     const character = characterData.map((char) => char.get({ plain: true }));
 
     // Pass serialized data and session flag into template
@@ -82,8 +83,25 @@ router.get("/UserPortal", checkAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.get("/prebuilt/:id", async (req, res) => {
+  try {
+    // Get all projects and JOIN with user data
+    const characterData = await Prebuilts.findByPk(req.params.id);
+   
+    // Serialize data so the template can read it
+    const character = characterData.dataValues;
 
-router.get("/character", async (req, res) => {
+    // Pass serialized data and session flag into template
+    res.render("prebuiltCharSheet", {
+      character,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get("/character/:id", async (req, res) => {
   try {
     // Get all projects and JOIN with user data
     const characterData = await Characters.findByPk(req.params.id, {

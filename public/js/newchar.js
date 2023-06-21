@@ -1,15 +1,8 @@
-//import List from './dndapi'
-//const { v4: genID } = require('uuid');
 
-const weaponBlock = document.getElementById("weapondiv");
-const spellBlock = document.getElementById("spelldiv");
-const otherBlock = document.getElementById("otherdiv");
-const newWModal = document.getElementById("newWeapon");
-const myWeapon = document.getElementById("myWeapon");
-/*const newWeaponButton = document.getElementById('newWeapon');
-const newSpellButton = document.getElementById('newSpell');
-const newOtherButton = document.getElementById('newOther');
-const saveChar = document.getElementById('saveCharacterBtn');*/
+const weaponBlock = document.getElementById('weapondiv');
+const spellBlock = document.getElementById('spelldiv');
+const otherBlock = document.getElementById('otherdiv');
+const newWModal = document.getElementById('newWeapon');
 const init = () => {
   loadList();
 };
@@ -76,7 +69,13 @@ const getItem = async (call) => {
   const item = call;
   let got = await getCall(item);
   console.log(got);
-  return got;
+        const gotThings = got.results.map(({index, name, url}) => ({
+            index: index,
+            name: name,
+            value: url
+        }));
+        console.log(gotThings);
+        return gotThings;
 };
 
 const deleteItem = (e) => {
@@ -313,6 +312,7 @@ const saveOther = async (e) => {
     });
 };
 
+
 const loadList = async () => {
   /*var theChoice =  document.getElementById('weapon-select');
     let spellChoice = await getfirst('/api/spells');
@@ -432,18 +432,13 @@ const saveCharacter = async (e) => {
 };
 init();
 document
-  .getElementById("saveWeapon")
-  .addEventListener("click", createWeaponBlock);
-/*document
- .getElementById('newSpell')
- .addEventListener('click', newSpell);
- document
- .getElementById('newOther')
- .addEventListener('click', newOther);
- document
- .getElementById('saveCharacterBtn')
- .addEventListener('click', saveCharacter);*/
 
-let saveButton = document.getElementById("saveCharacterBtn");
+ document
+ .getElementById('saveSpell')
+ .addEventListener('click', createSpellBlock);
+ document
+ .getElementById('saveOther')
+ .addEventListener('click', createOtherBlock);
+ document
+ .addEventListener('click', saveCharacter);
 
-saveButton.addEventListener("click", saveToDB);

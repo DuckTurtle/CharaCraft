@@ -1,13 +1,11 @@
-//const List = require('./dndapi');
-
-const charID = document.querySelector('#charater').value();
-let weaponBlock = document.querySelector('#weapondiv');
-let spellBlock = document.querySelector('#spelldiv');
-let newWeaponButton = document.querySelector('#newWeapon');
-let newSpellButton = document.querySelector('#newSpell');
-let newOtherButton = document.querySelector('#newOther');
-let savebnt = document.querySelector('#saveBnt');
-
+const charID = document.getElementById('charater').value();
+const weaponBlock = document.getElementById('weapondiv');
+const spellBlock = document.getElementById('spelldiv');
+const otherBlock = document.getElementById('otherdiv');
+const newWModal = document.getElementById('newWeapon');
+const init = () => {
+  loadList();
+}
 
 function genID() {
   var S4 = function() {
@@ -32,77 +30,77 @@ function genID() {
   };
   
 //takes api call and converts it to list
-
-  const getItem = async (call) =>{
+  const getfirst = async (call) =>{
       const item = call
     let got = await getCall(item)
     console.log(got);
-      //.then((rows)=> {
-         // let got = rows
           const gotThings = got.equipment.map(({index, name, url}) => ({
               index: index,
               name: name,
               value: url
           }));
           console.log(gotThings);
-          return gotThings
-     // })
+          return gotThings;
   };
-
-
-  function genID() {
-    var S4 = function() {
-       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-    };
-    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-  };
+  const getspell = async (call) =>{
+    const item = call
+  let got = await getCall(item)
+  console.log(got);
+        const gotThings = got.results.map(({index, name, url}) => ({
+            index: index,
+            name: name,
+            value: url
+        }));
+        console.log(gotThings);
+        return gotThings;
+};
+const getItem = async (call) =>{
+  const item = call
+let got = await getCall(item);
+      console.log(got);
+      return got;
+};
   
-  const deleteItem = (e, array,) => {
+  const deleteItem = (e) => {
       e.stopPropagation();
       const item = e.target;
-      const formid = JSON.parse(item.parentElement.getAttribute('id'));
+      const formid = item.parentElement;
       formid.remove();
     };
     
   
     //grabs item with e then collects its data and creates a weapon div.
-    const createWeaponBlock = async (e) =>{
-      e.stopPropagation();
+    const createWeaponBlock = async (event) =>{
+      event.preventDefault()
+      event.stopPropagation()
       //deletes old form and relaces with info.
-      const item = e.target;
-      const wName = JSON.parse(item.siblings('.sellection').value());
+      const item = document.getElementById('weapon-select')
+      const wName = item.value;
       //api call to get info.
-      const itemInfo =  await List.getItem(wName);
-      const formid = JSON.parse(item.parentElement.getAttribute('value'));
-      formid.remove();
+      const itemInfo =  await getItem(wName);
   //creates the weapon block
       var div = document.createElement('tr');
-      div.setAttribute('class',"weaponSlab")
+      div.setAttribute('class',"weaponSlab gethoverd")
       var title = document.createElement('th');
-      title.innerHTML(itemInfo.data.name);
-      title.setAttribute("name",`${itemInfo.data.name}`)
+      title.textContent = itemInfo.name;
+      title.setAttribute("name",`${itemInfo.name}`)
       title.setAttribute('scope',"row");
+      var discription = document.createElement('td'); 
+        //discription.setAttribute("class","hoverinfo");
       if(itemInfo.damage.damage_dice===undefined){
-        div.setAttribute("value", `${itemInfo.desc[1]} ${itemInfo.desc[2]}`);
+        discription.textContent = `${itemInfo.desc[1]} ${itemInfo.desc[2]}`;
       } else {
-        div.setAttribute("value", itemInfo.data.damage.damage_dice);
+        discription.textContent = itemInfo.damage.damage_dice;
       }
       //on hover function that displays damage info
-      div.addEventListener("mouseover", () => {
-        var discription = document.createElement('<div>'); 
-        div.setAttribute("class","hoverinfo");
-        discription.innerHTML((this.setAttribute("value")));
-        discription.append(div);
-      })
-      title.append(div);
+      div.append(title);
+      div.append(discription);
       const delBtnEl = document.createElement('i');
       //adds delete button.
       delBtnEl.setAttribute("id", "delBnt");
-      delBtnEl.setAttribute('class',
-        //add style
-      );
-      document.querySelector('#delBnt').addEventListener('click', deleteItem);
-      div.append(delBtnEl);
+      delBtnEl.setAttribute('class','bi bi-trash');
+      delBtnEl.addEventListener('click', deleteItem);
+      title.append(delBtnEl);
       weaponBlock.append(div);
     };
   
@@ -110,180 +108,57 @@ function genID() {
   const createSpellBlock = async (e) =>{
     e.stopPropagation();
     //deletes old form and relaces with info.
-    const item = e.target;
-    const wName = JSON.parse(item.siblings('.sellection').val());
+    const item = document.getElementById('spell-select')
+    const wName = item.value;
+    console.log(wName)
     //api call to get info.
     const itemInfo =  await getItem(wName);
-    const formid = JSON.parse(item.parentElement.getAttribute('id'));
-    formid.remove();
-  //creates the spell block
     var div = document.createElement('tr');
-    div.setAttribute('class',"spellSlab")
+    div.setAttribute('class',"spellSlab gethoverd")
     var title = document.createElement('th');
-    title.innerHTML(itemInfo.name);
+    title.textContent = itemInfo.name;
     title.setAttribute('scope',"row");
-    div.setAttribute("value", `${itemInfo.desc[1]} ${itemInfo.desc[2]}`);
-    //on hover function that displays damage info
-    div.addEventListener("mouseover", () => {
-      var discription = document.createElement('div'); 
-      var range = document.createElement('p');
-      range.innerHTML(itemInfo.range)
-      var dec = document.createElement('p');
-      dec.innerHTML(itemInfo.desc[1])
-      div.setAttribute("class","hoverinfo");
-      discription.innerHTML((this.setAttribute("value")));
-      discription.append(div);
-    })
-    title.append(div);
+    var discription = document.createElement('td'); 
+    discription.textContent = `${itemInfo.range} ${itemInfo.desc[0]}`
+    discription.append(div);
+    div.append(title);
     //adds delete button.
     const delBtnEl = document.createElement('i');
       //adds delete button.
       delBtnEl.setAttribute("id", "delBnt");
-      delBtnEl.setAttribute('class',
-        //add style
-      );
-      document.querySelector('#delBnt').addEventListener('click', deleteItem);
-    div.append(delBtnEl);
+      delBtnEl.setAttribute('class','bi bi-trash');
+      delBtnEl.addEventListener('click', deleteItem);
+    title.append(delBtnEl);
      spellBlock.append(div);
   };
   //creats new other block.
   const createOtherBlock = async (e) =>{
     e.stopPropagation();
     //deletes old form and relaces with info.
-    const item = e.target;
-    const name = JSON.parse(item.siblings('.inputTitle').val());
-    const desc = JSON.parse(item.siblings('.inputDesc').val());
-    const formid = JSON.parse(item.parentElement.getAttribute('id'));
-    formid.remove();
+    const name = document.getElementById('otherTitle').value;
+    const desc = document.getElementById('otherDec').value;
+    const formid = genID();
   //creates the spell block
     var div =  document.createElement('tr');
     div.setAttribute("id", formid);
-    div.setAttribute('class',"otherSlab")
+    div.setAttribute('class', "otherSlab")
     var title =  document.createElement('th');
-    title.innerHTML(name);
+    title.textContent = name ;
     title.setAttribute('scope',"row");
-    div.setAttribute("value", desc);
-    //on hover function that displays damage info
-    div.addEventListener("mouseover", () => {
-      var discription =  document.createElement('div'); 
-      div.setAttribute("class","hoverinfo");
-      discription.innerHTML(this.setAttribute("value"));
-      discription.append(div);
-    })
-    title.append(div);
+    var discription =  document.createElement('td'); 
+    discription.textContent = desc ;
+    div.append(title);
+    div.append(discription);
     //adds delete button.
     const delBtnEl = document.createElement('i');
-    //adds delete button.
-    delBtnEl.setAttribute("id", "delBnt");
-    delBtnEl.setAttribute('class',
-      //add style
-    );
-    document.querySelector('#delBnt').addEventListener('click', deleteItem);
-    div.append(delBtnEl);
-     spellBlock.append(div);
-  };
-  
-    //creats a new weapon form.
-    const newWeapon = async () =>  {
-      var form =  document.createElement('form');
-      form.setAttribute('value', genID());
-      var myChoice =  document.createElement('select');
-      myChoice.setAttribute('required');
-      myChoice.setAttribute('class', 'sellection');
-      let choice = await getItem('/api/equipment-categories/weapon');
-      choice.array.forEach(element => {
-         myChoice.append(
-            document.createElement('option').val(element.url).html(element.name).id(element.index)
-          );
-      });
-      form.append(myChoice);
-      const delBtnEl = document.createElement('i');
       //adds delete button.
       delBtnEl.setAttribute("id", "delBnt");
-      delBtnEl.setAttribute('class',
-        //add style
-      );
-      document.querySelector('#delBnt').addEventListener('click', deleteItem);
-      form.append(delBtnEl);
-      //adds save bnt
-      const saveBnt = document.createElement('i');
-      saveBnt.setAttribute("id", "savBnt");
-      saveBnt.setAttribute('class',
-        //add style
-      );
-      saveBnt.setAttribute('type',"submit");
-      document.querySelector('#savBnt').addEventListener('submit', createWeaponBlock(myChoice.val()));
-      form.append(saveBnt);
-      weaponBlock.append(form);
-  };
-  
-  //creats spell selection form.
-  const newSpell = async () =>  {
-    var form = document.createElement('<form>');
-    form.setAttribute('value', genID());
-    var myChoice = document.createElement('<select>');
-    myChoice.setAttribute('required');
-    myChoice.setAttribute('class', 'sellection');
-    let choice = await getItem('/api/equipment-categories/weapon');
-    choice.array.forEach(element => {
-      myChoice.append(
-         document.createElement('option').val(element.url).html(element.name).id(element.index)
-       );
-    });
-    form.append(myChoice);
-    const delBtnEl = document.createElement('i');
-    //adds delete button.
-    delBtnEl.setAttribute("id", "delBnt");
-    delBtnEl.setAttribute('class',
-      //add style
-    );
-    document.querySelector('#delBnt').addEventListener('click', deleteItem);
-    form.append(delBtnEl);
-    const saveBnt = document.createElement('i');
-    saveBnt.setAttribute("id", "savBnt");
-    saveBnt.setAttribute('class',
-      //add style
-    );
-    saveBnt.setAttribute('type',"submit");
-    document.querySelector('#savBnt').addEventListener('submit', createWeaponBlock(myChoice.val()));
-    form.append(saveBnt);
-    spellBlock.append(form);
-  };
-  //creats other selection form.
-  const newOther = async () =>  {
-    var form = document.createElement('<form>');
-    form.setAttribute('value', genID());
-    var myTitle = document.createElement('<input>');
-    myTitle .setAttribute('type',"text");
-    myTitle .setAttribute('placeholder','Title.')
-    myTitle .setAttribute('required');
-    myTitle .setAttribute('class', 'inputTitle');
-    form.append(myTitle);
-    var myDesc = document.createElement('<input>');
-    myDesc.setAttribute('type',"text");
-    myDesc.setAttribute('placeholder','Description')
-    myDesc.setAttribute('required');
-    myDesc.setAttribute('class', 'inputDesc');
-    form.append(myDesc);
-    const delBtnEl = document.createElement('i');
-    //adds delete button.
-    delBtnEl.setAttribute("id", "delBnt");
-    delBtnEl.setAttribute('class',
-      //add style
-    );
-    document.querySelector('#delBnt').addEventListener('click', deleteItem);
-    form.append(delBtnEl);
-    //adds saveBnt
-    const saveBnt = document.createElement('i');
-      saveBnt.setAttribute("id", "savBnt");
-      saveBnt.setAttribute('class',
-        //add style
-      );
-      saveBnt.setAttribute('type',"submit");
-      document.querySelector('#savBnt').addEventListener('submit', createWeaponBlock(form.getAttribute('id')));
-  
-    form.append(saveBnt);
-    spellBlock.append(div);
+      delBtnEl.setAttribute('class','bi bi-trash');
+      delBtnEl.addEventListener('click', deleteItem);
+      div.append(delBtnEl);
+     otherBlock.append(div);
+     name.textContent = ""
+     desc.textContent = ""
   };
   
   const saveWeapons = async(e) => {
@@ -291,7 +166,7 @@ function genID() {
     let currentWeapons = [];
   await document.querySelectorAll('.weaponSlab').map( () => {
     let wName = this.childElement.getAttribute('name');
-    let wDamage = this.value();
+    let wDamage = this.value;
     currentWeapons.push({
       name:wName,
       damage:wDamage
@@ -351,6 +226,29 @@ function genID() {
     });
    });
   };
+
+
+  const loadList = async () => {
+    var theChoice =  document.getElementById('spell-select');
+    let spellChoice = await getspell('/api/spells');
+      for (var i=0;i<spellChoice.length; i++){
+        var object =  document.createElement('option')
+        object.setAttribute("value", spellChoice[i].value)
+        object.textContent = spellChoice[i].name
+        object.setAttribute('id', spellChoice[i].index);
+           theChoice.append(object);
+      };
+  
+    var myChoice =  document.getElementById('weapon-select');
+    let choice = await getfirst('/api/equipment-categories/weapon');
+    for (var i=0;i<choice.length; i++){
+      var object =  document.createElement('option')
+      object.setAttribute("value", choice[i].value);
+      object.textContent = choice[i].name;
+      object.setAttribute('id', choice[i].index);
+         myChoice.append(object);
+    }
+  }
   const saveToDB = async(e) => {
     e.stopPropagation();
     //gets others name
@@ -389,7 +287,7 @@ function genID() {
   let ccharisma= document.querySelector('#cha').value.trim();
   if (charID && cname && campaignName && cclass && cLevel && crace && chp && armorClass && cinitiative &&
     cspeed && cstrength && cdexterity && cconstitution && cintelligence && cwisdom && ccharisma) {
-    const response = await fetch(`/api/characters/character`, {
+    const response = await fetch(`/api/characters/newcharacter`, {
       method: 'POST',
       body: JSON.stringify({charID,cname, campaignName,cclass,cLevel,crace,chp,armorClass,cinitiative,
         cspeed, cstrength, cdexterity, cconstitution, cintelligence, cwisdom, ccharisma,
@@ -405,6 +303,7 @@ function genID() {
     }
   }
   };
+  
   const saveCharacter = async (e) => {
     e.stopPropagation();
     await saveWeapons();
@@ -412,8 +311,17 @@ function genID() {
     await saveSpells();
     await saveToDB();
     
-  }
-  newWeaponButton.addEventListener('click',newWeapon);
-  newSpellButton.addEventListener('click',newSpell);
-  newOtherButton.addEventListener('click',newOther);
-  savebnt.addEventListener('click',saveCharacter);
+  };
+  init();
+document
+ .getElementById('saveWeapon')
+ .addEventListener('click', createWeaponBlock);
+ document
+ .getElementById('saveSpell')
+ .addEventListener('click', createSpellBlock);
+ document
+ .getElementById('saveOther')
+ .addEventListener('click', createOtherBlock);
+ document
+ .getElementById('saveCharacterBtn')
+ .addEventListener('click', saveCharacter);
