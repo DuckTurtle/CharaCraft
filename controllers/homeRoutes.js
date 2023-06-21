@@ -83,7 +83,7 @@ router.get("/UserPortal", checkAuth, async (req, res) => {
   }
 });
 
-router.get("/character", async (req, res) => {
+router.get("/character/:id", async (req, res) => {
   try {
     // Get all projects and JOIN with user data
     const characterData = await Characters.findByPk(req.params.id, {
