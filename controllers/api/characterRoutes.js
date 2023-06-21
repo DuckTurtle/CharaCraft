@@ -148,5 +148,27 @@ router.post("/newcharacter", async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.delete('/delChar/:id', async (req, res) => {
+  console.log({id: req.params.id,
+    user_id: req.session.user_id,})
+  try {
+    const goneData = await Characters.destroy({
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id,
+      },
+    })
+    .then((TheGone) => {
+      if (!TheGone) {
+        res.status(404).json({ message: 'No character found with this id!' });
+        return;
+      }
+  
+      res.status(200).json(TheGone);
+    })
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;

@@ -137,7 +137,8 @@ router.get("/character/:id", async (req, res) => {
     });
 
     // Serialize data so the template can read it
-    const character = characterData.map((char) => char.get({ plain: true }));
+    const character = characterData.dataValues;
+    console.log(character);
 
     // Pass serialized data and session flag into template
     res.render("characterSheet", {
