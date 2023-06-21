@@ -3,6 +3,7 @@
     <!--Start of grid displaying characters on user portal-->
     <div class = "CharacterGrid">
         <div class ="row justify-content-center pt-4">
+            {{#if characters}}
             {{#each character as |characters|}}
             <div class="col-md-3 CharacterBlock" id="CharacterBlock" >
                 <div class ="col p-2 text-black bg-light mb-4">
@@ -16,6 +17,7 @@
                 </div>
             </div>
             {{/each}}
+            {{/if}}
         </div>
     </div>
         
