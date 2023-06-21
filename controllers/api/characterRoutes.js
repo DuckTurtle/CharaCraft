@@ -117,7 +117,8 @@ router.post("/newcharacter", async (req, res) => {
       });
       return Charspell.bulkCreate(charSpellIdArr);
     }
-    res.status(200).json(character);
+  
+  
     //links weapons to charater
     if (req.body.currentWeapons.length) {
       const charWeaponIdArr = req.body.currentWeapons.map((weapon_id) => {
@@ -128,7 +129,6 @@ router.post("/newcharacter", async (req, res) => {
       });
       return CharWeapon.bulkCreate(charWeaponIdArr);
     }
-    res.status(200).json(character);
     // links other to character
     if (req.body.currentOther.length) {
       const charOtherIdArr = req.body.currentOther.map((other_Id) => {
@@ -137,7 +137,7 @@ router.post("/newcharacter", async (req, res) => {
           other_Id,
         };
       });
-      return Charspell.bulkCreate(charOtherIdArr);
+      return CharOther.bulkCreate(charOtherIdArr);
     }
     res.status(200).json(character);
   })
@@ -148,6 +148,8 @@ router.post("/newcharacter", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+
 router.delete('/delChar/:id', async (req, res) => {
   console.log({id: req.params.id,
     user_id: req.session.user_id,})

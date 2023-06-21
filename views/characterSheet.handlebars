@@ -169,7 +169,7 @@
             </tr>
           </thead>
           <tbody class="table-group-divider" id="weapondiv">
-            {{#each character.weapons as |weapons|}}
+            {{#each character.weapon as |weapons|}}
             <tr id="{{weapons.dataValues.id}}">
             <th>{{weapons.dataValues.name}}</th>
             <td>{{weapons.dataValues.damage}}</td>
@@ -195,7 +195,7 @@
           </tr>
         </thead>
         <tbody class="table-group-divider" id="otherdiv">
-          {{#each character.others as |other|}}
+          {{#each character.other as |other|}}
           <tr id="{{other.dataValues.id}}">
             <th>{{other.dataValues.name}}</th>
             <td>{{other.dataValues.description}}</td>

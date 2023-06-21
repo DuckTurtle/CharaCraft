@@ -193,6 +193,3 @@ document
 document
   .getElementById('saveOther')
   .addEventListener('click', createOtherBlock);
-document
-  .getElementById('saveCharacterBtn')
-  .addEventListener('click', saveCharacter);
