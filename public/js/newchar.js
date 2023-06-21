@@ -85,7 +85,7 @@ let got = await getCall(item);
       const wName = item.value;
       //api call to get info.
       const itemInfo =  await getItem(wName);
-  //creates the weapon block
+      //creates the weapon block
       var div = document.createElement('tr');
       div.setAttribute('class',"weaponSlab .gethoverd")
       var title = document.createElement('th');
@@ -100,7 +100,6 @@ let got = await getCall(item);
         discription.textContent = itemInfo.damage.damage_dice;
       }
       //on hover function that displays damage info
-      
         div.append(discription);
       div.append(title);
       const delBtnEl = document.createElement('i');
@@ -108,7 +107,7 @@ let got = await getCall(item);
       delBtnEl.setAttribute("id", "delBnt");
       delBtnEl.setAttribute('class','bi bi-trash');
       delBtnEl.addEventListener('click', deleteItem);
-      div.append(delBtnEl);
+      title.append(delBtnEl);
       weaponBlock.append(div);
     };
   
