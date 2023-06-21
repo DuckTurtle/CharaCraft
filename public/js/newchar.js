@@ -261,6 +261,7 @@ const saveWeapons = async (e) => {
           "Content-Type": "application/json",
         },
       });
+
     });
 };
 const saveSpells = async (e) => {
