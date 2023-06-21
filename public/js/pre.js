@@ -94,12 +94,13 @@ let got = await getCall(item);
       //on hover function that displays damage info
       div.append(title);
       div.append(discription);
-      const delBtnEl = document.createElement('i');
+      const delBtnEl = document.createElement('td');
       //adds delete button.
+      delBtnEl.innerHTML = "delete"
       delBtnEl.setAttribute("id", "delBnt");
-      delBtnEl.setAttribute('class','bi bi-trash');
+      delBtnEl.setAttribute('class','bi bi-trash border border-white border-1');
       delBtnEl.addEventListener('click', deleteItem);
-      title.append(delBtnEl);
+      div.append(delBtnEl);
       weaponBlock.append(div);
     };
   
@@ -123,12 +124,12 @@ let got = await getCall(item);
     div.append(title);
     div.append(discription);
     //adds delete button.
-    const delBtnEl = document.createElement('i');
-    //adds delete button.
+    const delBtnEl = document.createElement('td');
+    delBtnEl.innerHTML = "delete"
     delBtnEl.setAttribute("id", "delBnt");
-    delBtnEl.setAttribute('class', 'bi bi-trash');
+    delBtnEl.setAttribute('class', 'bi bi-trash border border-white border-1');
     delBtnEl.addEventListener('click', deleteItem);
-    title.append(delBtnEl);
+    div.append(delBtnEl);
     spellBlock.append(div);
   };
   //creats new other block.
@@ -150,10 +151,11 @@ let got = await getCall(item);
     div.append(title);
     div.append(discription);
     //adds delete button.
-    const delBtnEl = document.createElement('i');
+    const delBtnEl = document.createElement('td');
       //adds delete button.
+      delBtnEl.innerHTML = "delete"
       delBtnEl.setAttribute("id", "delBnt");
-      delBtnEl.setAttribute('class','bi bi-trash');
+      delBtnEl.setAttribute('class','bi bi-trash border border-white border-1');
       delBtnEl.addEventListener('click', deleteItem);
       div.append(delBtnEl);
      otherBlock.append(div);
