@@ -70,12 +70,23 @@ router.get("/UserPortal", checkAuth, async (req, res) => {
       },
     });
 
+    // gets all the User info
+    const user = await User.findAll({
+      where: {
+        id: req.session.user_id,
+      },
+    });
+
     // Serialize data so the template can read it
-
     const character = characterData.map((char) => char.get({ plain: true }));
+    const userData= user.map((char) => char.get({ plain: true }));
 
+    //assigns User's username
+    const userName = userData[0].name
+  
     // Pass serialized data and session flag into template
     res.render("UserPortal", {
+      userName,
       character,
       logged_in: req.session.logged_in,
     });

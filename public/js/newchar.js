@@ -155,7 +155,7 @@ let got = await getCall(item);
       delBtnEl.setAttribute("id", "delBnt");
       delBtnEl.setAttribute('class','bi bi-trash');
       delBtnEl.addEventListener('click', deleteItem);
-      div.append(delBtnEl);
+      title.append(delBtnEl);
      otherBlock.append(div);
      name.textContent = ""
      desc.textContent = ""
