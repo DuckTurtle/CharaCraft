@@ -68,6 +68,9 @@
   opacity: 0;
   transition: opacity 0.3s ease-out;
 }
+.gethoverd:hover .hoverinfo{
+  opacity:1;
+}
 
 .overlay {
   height: 60%;
@@ -94,6 +97,9 @@
   position: relative;
   z-index: 9000;
   display:block !important;
+}
+select {
+
 }
 
 @media screen and (max-height: 450px) {
