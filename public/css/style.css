@@ -98,9 +98,7 @@
   z-index: 9000;
   display:block !important;
 }
-select {
 
-}
 
 @media screen and (max-height: 450px) {
   .overlay a {

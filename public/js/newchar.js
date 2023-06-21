@@ -86,7 +86,7 @@ let got = await getCall(item);
       title.setAttribute('scope',"row");
       var discription = document.createElement('td'); 
         //discription.setAttribute("class","hoverinfo");
-      if(itemInfo.damage.damage_dice===undefined){
+      if(undefined == itemInfo.damage){
         discription.textContent = `${itemInfo.desc[1]} ${itemInfo.desc[2]}`;
       } else {
         discription.textContent = itemInfo.damage.damage_dice;
@@ -120,8 +120,8 @@ let got = await getCall(item);
     title.setAttribute('scope',"row");
     var discription = document.createElement('td'); 
     discription.textContent = `${itemInfo.range} ${itemInfo.desc[0]}`
-    discription.append(div);
     div.append(title);
+    div.append(discription);
     //adds delete button.
     const delBtnEl = document.createElement('i');
       //adds delete button.
@@ -161,71 +161,70 @@ let got = await getCall(item);
      desc.textContent = ""
   };
   
-  const saveWeapons = async(e) => {
-    e.stopPropagation();
-    let currentWeapons = [];
-  await document.querySelectorAll('.weaponSlab').map( () => {
-    let wName = this.childElement.getAttribute('name');
-    let wDamage = this.value;
-    currentWeapons.push({
-      name:wName,
-      damage:wDamage
-    });
-  })
-  .then(() =>{
-    fetch('api/weapons',{
+  const saveWeapons = async () => {
+  var wep = document.querySelectorAll('.weaponSlab');
+  await wep.forEach(()=> {
+    console.log(wep)
+    let wName = wep[0].children[0].innerText
+    let wDamage = wep[0].children[1].innerText
+    const sendEM = async () => {
+     await fetch('api/weapons/',{
       method: 'POST',
-      body: currentWeapons,
+      body: JSON.stringify({wName, wDamage}),
       headers: {
         'Content-Type': 'application/json',
       },
     });
-   });
-  };
+    if (sendEM.ok) {
+      console.log('Weapons saved');
+    } else {
+      alert('Failed to Save Character');
+    }
+  }})
+   };
   const saveSpells = async(e) => {
-    e.stopPropagation();
-    let currentSpells = [];
-  await document.querySelectorAll('.spellSlab').map( () => {
-    let sName = this.childElement.getAttribute('name');
-    let sDamage = this.value();
-    currentSpells.push({
-      name:sName,
-      damage:sDamage
-    });
-  })
-  .then(() =>{
-    fetch('api/spells',{
-      method: 'POST',
-      body: currentspells,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-   });
-  };
+    var wep = document.querySelectorAll('.spellSlab');
+    await wep.forEach(()=> {
+      console.log(wep)
+      let wName = wep[0].children[0].innerText
+      let sDec = wep[0].children[1].innerText
+      const sendEM = async () => {
+       await fetch('api/spells/',{
+        method: 'POST',
+        body: JSON.stringify({wName, sDec}),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (sendEM.ok) {
+        console.log('spells saved');
+      } else {
+        alert('Failed to Save Character');
+      }
+    }})
+     };
   const saveOther = async(e) => {
-    e.stopPropagation();
-    let currentOther = [];
-  await document.querySelectorAll('.otherSlab').map( () => {
-    let oName = this.childElement.getAttribute('name');
-    let oDamage = this.value();
-    let oId = this.getAttribute('id')
-    currentOther.push({
-      id:oId,
-      name:oName,
-      damage:oDamage
-    });
-  })
-  .then(() =>{
-    fetch('api/other',{
-      method: 'POST',
-      body: currentOther,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-   });
-  };
+    var wep = document.querySelectorAll('.otherSlab');
+    await wep.forEach(()=> {
+      console.log(wep)
+      let id = wep[0].id
+      let wName = wep[0].children[0].innerText
+      let sDec = wep[0].children[1].innerText
+      const sendEM = async () => {
+       await fetch('api/other/',{
+        method: 'POST',
+        body: JSON.stringify({id, wName, sDec}),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (sendEM.ok) {
+        console.log('spells saved');
+      } else {
+        alert('Failed to Save Character');
+      }}
+    })
+     };
 
 
   const loadList = async () => {
@@ -250,7 +249,6 @@ let got = await getCall(item);
     }
   }
   const saveToDB = async(e) => {
-    e.stopPropagation();
     //gets others name
     let currentOther = [];
   await document.querySelectorAll('.otherSlab').map( () => {
