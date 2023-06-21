@@ -104,31 +104,32 @@ let got = await getCall(item);
     };
   
   //creates spell card.
-  const createSpellBlock = async (e) =>{
+  const createSpellBlock = async (e) => {
     e.stopPropagation();
     //deletes old form and relaces with info.
     const item = document.getElementById('spell-select')
     const wName = item.value;
-    console.log(wName)
+    const num = item.options[item.selectedIndex].id
     //api call to get info.
-    const itemInfo =  await getItem(wName);
+    const itemInfo = await getItem(wName);
     var div = document.createElement('tr');
-    div.setAttribute('class',"spellSlab gethoverd")
+    div.setAttribute("id", num)
+    div.setAttribute('class', "spellSlab gethoverd")
     var title = document.createElement('th');
     title.textContent = itemInfo.name;
-    title.setAttribute('scope',"row");
-    var discription = document.createElement('td'); 
+    title.setAttribute('scope', "row");
+    var discription = document.createElement('td');
     discription.textContent = `${itemInfo.range} ${itemInfo.desc[0]}`
-    discription.append(div);
     div.append(title);
+    div.append(discription);
     //adds delete button.
     const delBtnEl = document.createElement('i');
-      //adds delete button.
-      delBtnEl.setAttribute("id", "delBnt");
-      delBtnEl.setAttribute('class','bi bi-trash');
-      delBtnEl.addEventListener('click', deleteItem);
+    //adds delete button.
+    delBtnEl.setAttribute("id", "delBnt");
+    delBtnEl.setAttribute('class', 'bi bi-trash');
+    delBtnEl.addEventListener('click', deleteItem);
     title.append(delBtnEl);
-     spellBlock.append(div);
+    spellBlock.append(div);
   };
   //creats new other block.
   const createOtherBlock = async (e) =>{
@@ -179,4 +180,17 @@ const loadList = async () => {
       object.setAttribute('id', choice[i].index);
          myChoice.append(object);
     }
-  }
+  };
+  init();
+  document
+  .getElementById('saveWeapon')
+  .addEventListener('click', createWeaponBlock);
+document
+  .getElementById('saveSpell')
+  .addEventListener('click', createSpellBlock);
+document
+  .getElementById('saveOther')
+  .addEventListener('click', createOtherBlock);
+document
+  .getElementById('saveCharacterBtn')
+  .addEventListener('click', saveCharacter);
