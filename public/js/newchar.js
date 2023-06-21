@@ -1,49 +1,73 @@
+
 const weaponBlock = document.getElementById('weapondiv');
 const spellBlock = document.getElementById('spelldiv');
 const otherBlock = document.getElementById('otherdiv');
 const newWModal = document.getElementById('newWeapon');
 const init = () => {
   loadList();
-}
+};
 
 function genID() {
-  var S4 = function() {
-     return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+  var S4 = function () {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   };
-  return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-};
+  return (
+    S4() +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    S4() +
+    S4()
+  );
+}
 //api call
 
-  const getCall = async (call) => {
-      var dndAPI = "https://www.dnd5eapi.co" + call;
-      let dataResults = await fetch(dndAPI)
-      .then(function(response){
-          var results = response.json();
-          console.log(results);
-              return results;
-          });
-          let data = await dataResults;
-          console.log(data);
-          return data;
-          
-  };
-  
+const getCall = async (call) => {
+  var dndAPI = "https://www.dnd5eapi.co" + call;
+  let dataResults = await fetch(dndAPI).then(function (response) {
+    var results = response.json();
+    console.log(results);
+    return results;
+  });
+  let data = await dataResults;
+  console.log(data);
+  return data;
+};
+
 //takes api call and converts it to list
-  const getfirst = async (call) =>{
-      const item = call
-    let got = await getCall(item)
-    console.log(got);
-          const gotThings = got.equipment.map(({index, name, url}) => ({
-              index: index,
-              name: name,
-              value: url
-          }));
-          console.log(gotThings);
-          return gotThings;
-  };
-  const getspell = async (call) =>{
-    const item = call
-  let got = await getCall(item)
+const getfirst = async (call) => {
+  const item = call;
+  let got = await getCall(item);
+  console.log(got);
+  const gotThings = got.equipment.map(({ index, name, url }) => ({
+    index: index,
+    name: name,
+    value: url,
+  }));
+  console.log(gotThings);
+  return gotThings;
+};
+const getspell = async (call) => {
+  const item = call;
+  let got = await getCall(item);
+  console.log(got);
+  const gotThings = got.map(({ index, name, url }) => ({
+    index: index,
+    name: name,
+    value: url,
+  }));
+  console.log(gotThings);
+  return gotThings;
+};
+const getItem = async (call) => {
+  const item = call;
+  let got = await getCall(item);
   console.log(got);
         const gotThings = got.results.map(({index, name, url}) => ({
             index: index,
@@ -227,9 +251,9 @@ let got = await getCall(item);
      };
 
 
-  const loadList = async () => {
-    var theChoice =  document.getElementById('spell-select');
-    let spellChoice = await getspell('/api/spells');
+const loadList = async () => {
+  var theChoice =  document.getElementById('weapon-select');
+    let spellChoice = await getfirst('/api/spells');
       for (var i=0;i<spellChoice.length; i++){
         var object =  document.createElement('option')
         object.setAttribute("value", spellChoice[i].value)
@@ -254,72 +278,109 @@ let got = await getCall(item);
   await document.querySelectorAll('.otherSlab').map( () => {
     let oId = this.getAttribute('id');
     currentOther.push(oId);
-  })
+  });
   //gets spells name
   let currentSpells = [];
-  await document.querySelectorAll('.spellSlab').map( () => {
-    let sName = this.childElement.getAttribute('name');
+  document.querySelectorAll(".spellSlab").forEach((el) => {
+    let sName = el.childElement.getAttribute("name");
     currentSpells.push(sName);
   });
-    // gets weapons names
-    let currentWeapons = [];
-  await document.querySelectorAll('.weaponSlab').map( () => {
-    let wName = this.childElement.getAttribute('name');
+  // gets weapons names
+  let currentWeapons = [];
+  document.querySelectorAll(".weaponSlab").forEach((el) => {
+    let wName = el.childElement.getAttribute("name");
     currentWeapons.push(wName);
   });
   //grabs needed info for post.
-  let cname = document.querySelector('#characterName').value.trim();
-  let campaignName= document.querySelector('#campaignName').value.trim();
-  let cclass= document.querySelector('#class').value.trim();
-  let cLevel= document.querySelector('#level').value.trim();
-  let crace= document.querySelector('#race').value.trim();
-  let chp= document.querySelector('#hitpoints').value.trim();
-  let armorClass= document.querySelector('#armorClass').value.trim();
-  let cinitiative= document.querySelector('#initiative').value.trim();
-  let cspeed= document.querySelector('#speed').value.trim();
-  let cstrength= document.querySelector('#str').value.trim();
-  let cdexterity= document.querySelector('#dex').value.trim();
-  let cconstitution= document.querySelector('#con').value.trim();
-  let cintelligence= document.querySelector('#int').value.trim();
-  let cwisdom= document.querySelector('#wis').value.trim();
-  let ccharisma= document.querySelector('#cha').value.trim();
-  if (charID && cname && campaignName && cclass && cLevel && crace && chp && armorClass && cinitiative &&
-    cspeed && cstrength && cdexterity && cconstitution && cintelligence && cwisdom && ccharisma) {
+  let cname = document.querySelector("#character").textContent.trim();
+  let campaignName = document.querySelector("#campaignName").textContent.trim();
+  let cclass = document.querySelector("#class").textContent.trim();
+  let cLevel = document.querySelector("#level").textContent.trim();
+  let crace = document.querySelector("#race").textContent.trim();
+  let chp = document.querySelector("#hitpoints.statWidth").value.trim();
+  let armorClass = document.querySelector("#armor.statWidth").value.trim();
+  let cinitiative = document
+    .querySelector("#initiative.statWidth")
+    .value.trim();
+  let cspeed = document.querySelector("#speed.statWidth").value.trim();
+  let cstrength = document.querySelector("#str").textContent.trim();
+  let cdexterity = document.querySelector("#dex").textContent.trim();
+  let cconstitution = document.querySelector("#con").textContent.trim();
+  let cintelligence = document.querySelector("#int").textContent.trim();
+  let cwisdom = document.querySelector("#wis").textContent.trim();
+  let ccharisma = document.querySelector("#cha").textContent.trim();
+  if (
+    cname &&
+    campaignName &&
+    cclass &&
+    cLevel &&
+    crace &&
+    chp &&
+    armorClass &&
+    cinitiative &&
+    cspeed &&
+    cstrength &&
+    cdexterity &&
+    cconstitution &&
+    cintelligence &&
+    cwisdom &&
+    ccharisma
+  ) {
     const response = await fetch(`/api/characters/newcharacter`, {
-      method: 'POST',
-      body: JSON.stringify({charID,cname, campaignName,cclass,cLevel,crace,chp,armorClass,cinitiative,
-        cspeed, cstrength, cdexterity, cconstitution, cintelligence, cwisdom, ccharisma,
-        currentSpells, currentWeapons,currentOther}),
+      method: "POST",
+      body: JSON.stringify({
+        cname,
+        campaignName,
+        cclass,
+        cLevel,
+        crace,
+        chp,
+        armorClass,
+        cinitiative,
+        cspeed,
+        cstrength,
+        cdexterity,
+        cconstitution,
+        cintelligence,
+        cwisdom,
+        ccharisma,
+        currentSpells,
+        currentWeapons,
+        currentOther,
+      }),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
     if (response.ok) {
-      console.log('Character saved');
+      console.log("Character saved");
     } else {
-      alert('Failed to Save Character');
+      alert("Failed to Save Character");
     }
   }
-  };
+};
+
+
+init();
+const saveCharacter = async (e) => {
+  e.stopPropagation();
+  await saveWeapons();
+  await saveOther();
+  await saveSpells();
+  await saveToDB();
   
-  const saveCharacter = async (e) => {
-    e.stopPropagation();
-    await saveWeapons();
-    await saveOther();
-    await saveSpells();
-    await saveToDB();
-    
-  };
-  init();
+};
+init();
 document
- .getElementById('saveWeapon')
- .addEventListener('click', createWeaponBlock);
- document
- .getElementById('saveSpell')
- .addEventListener('click', createSpellBlock);
- document
- .getElementById('saveOther')
- .addEventListener('click', createOtherBlock);
- document
- .getElementById('saveCharacterBtn')
- .addEventListener('click', saveCharacter);
+.getElementById('saveWeapon')
+.addEventListener('click', createWeaponBlock);
+document
+.getElementById('saveSpell')
+.addEventListener('click', createSpellBlock);
+document
+.getElementById('saveOther')
+.addEventListener('click', createOtherBlock);
+document
+.getElementById('saveCharacterBtn')
+.addEventListener('click', saveCharacter);
+
