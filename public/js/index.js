@@ -4,7 +4,7 @@ const delButtonHandler = async (event) => {
     console.log(id);
     var confirm = window.confirm("Would you like to delete this character?");
     if (confirm) {
-      const response = await fetch(`/api/characters/${id}`, {
+      const response = await fetch(`/api/characters/delChar/${id}`, {
         method: "DELETE",
       });
 
