@@ -13,7 +13,7 @@
     {{#each prebuilts as |prebuilt|}}
       <!--card -->
     <div class="card cardEdit border border-dark-subtle border-5" style="width: 18rem;" role="button" id="preChar">
-      <img src="{{prebuilt.filename}}" class="card-img-top" alt="...">
+      <img src="{{prebuilt.filename}}" class="card-img-top" alt="{{prebuilt.class}} image">
       <div class="card-body text-center mb-2">
         <h5 class="card-title underline"><strong>{{prebuilt.class}}</strong></h5>
         <p class="card-text">{{prebuilt.description}}</p>
@@ -23,7 +23,7 @@
         <li class="list-group-item">Race: <strong>{{prebuilt.race}}</strong></li>
       </ul>
       <div class="card-body text-center">
-        <a href="#" class="btn btn-primary">View Character</a>
+        <a href="/prebuilt/{{prebuilt.id}}" class="btn btn-primary">View Character</a>
       </div>
     </div>
     {{/each}}
