@@ -2,11 +2,12 @@
 The aim of the this project was to work as a team to help develop a full stack application that can used to help solve a real world challenge. Through CharaCraft, people can build and store their D&D characters with ease.
 
 ## Media
-The following link is to this project's github repository
+Link for deployed heroku site:
+[Link to deployed Heroku site](https://characraft-27a6d9fbde68.herokuapp.com/)
 
+![characraft-27a6d9fbde68 herokuapp com_](https://github.com/DuckTurtle/CharaCraft-D-D5e-CharaterbuilderandStroge/assets/55112932/61c44fdd-6ae3-4816-b7d4-03e83845b058)
+![characraft-27a6d9fbde68 herokuapp com_newCharacter](https://github.com/DuckTurtle/CharaCraft-D-D5e-CharaterbuilderandStroge/assets/55112932/8986e293-3dca-49f9-ab7a-5246376a1a2f)
 
-The following link is to this project's live website
-[Link to Heroku site]()
 
 
 ## Table of Contents
