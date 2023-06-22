@@ -1,3 +1,4 @@
+
 const weaponBlock = document.getElementById('weapondiv');
 const spellBlock = document.getElementById('spelldiv');
 const otherBlock = document.getElementById('otherdiv');
@@ -293,9 +294,7 @@ const saveToDB = async (e) => {
   let crace = document.querySelector("#race").textContent.trim();
   let chp = document.querySelector("#hitpoints.statWidth").value.trim();
   let armorClass = document.querySelector("#armor.statWidth").value.trim();
-  let cinitiative = document
-    .querySelector("#initiative.statWidth")
-    .value.trim();
+  let cinitiative = document.querySelector("#initiative.statWidth").value.trim();
   let cspeed = document.querySelector("#speed.statWidth").value.trim();
   let cstrength = document.querySelector("#str").textContent.trim();
   let cdexterity = document.querySelector("#dex").textContent.trim();
@@ -382,3 +381,6 @@ document
   .getElementById('saveCharacterBtn')
   .addEventListener('click', saveCharacter);
 
+
+
+ 
