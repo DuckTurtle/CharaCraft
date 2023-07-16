@@ -58,7 +58,7 @@
   </div>
 </div>
 
-<div class="main fullLength d-flex justify-content-center" id="charater" value="{{character.id}}">
+<div class="main fullLength d-flex justify-content-center">
   <div class="row justify-content-center align-content-center">
     <!-- spells div-->
     <div class="row col-2 d-flex justify-content-center bg-warning justify-content-center g-0 border border-dark border-5">
@@ -76,9 +76,10 @@
         </thead>
         <tbody class="table-group-divider" id="spelldiv">
           {{#each character.spells as |spell|}}
-            <tr id="{{spell.dataValues.id}}">
+            <tr id="{{spell.dataValues.id}}" class="spellSlab">
             <th>{{spell.dataValues.name}}</th>
             <td>{{spell.dataValues.Damage}}</td>
+            <td id="delBnt" class="bi bi-trash border border-white border-1" type="button" onClick="deleteItem();">delete</td>
             </tr>
             {{/each}}
         </tbody>
@@ -94,6 +95,7 @@
       </div>
       <div>
         <h2 class="text-center" id="character" contenteditable="true" >{{character.name}}</h2>
+        <h2 class ="d-none d-print-none" id="char_ID" value="{{character.id}}"></h2>
       </div>
       <div>
         <h3 class="text-center" id="race" contenteditable="true"> {{character.race}}</h3>
@@ -128,29 +130,29 @@
       <div class="stats abilities d-flex justify-content-evenly my-3">
         <div>
           <label for="str"><strong>STR</strong></label>
-          <div id="str" class="stat" contenteditable="true">{{character.strength}} (<math>({{character.strength}}-10)/2</math>)</div>
+          <div id="str" class="stat" contenteditable="true">{{character.strength}}</div>
         </div>
         <div>
           <label for="dex"><strong>DEX</strong></label>
-          <div id="dex" class="stat" contenteditable="true">{{character.dexterity}} (<math>({{character.dexterity}}-10)/2</math>)</div>
+          <div id="dex" class="stat" contenteditable="true">{{character.dexterity}}</div>
         </div>
         <div>
           <label for="con"><strong>CON</strong></label>
-          <div id="con" class="stat" contenteditable="true">{{character.constitution}} (<math>({{character.constitution}}-10)/2</math>)</div>
+          <div id="con" class="stat" contenteditable="true">{{character.constitution}}</div>
         </div>
       </div>
       <div class="stats abilities d-flex justify-content-evenly my-3">
         <div>
           <label for="int"><strong>INT</strong></label>
-          <div id="int" class="stat" contenteditable="true">{{character.intelligence}} (<math>({{character.intelligence}}-10)/2</math>)</div>
+          <div id="int" class="stat" contenteditable="true">{{character.intelligence}} </div>
         </div>
         <div>
           <label for="wis"><strong>WIS</strong></label>
-          <div id="wis" class="stat" contenteditable="true">{{character.wisdom}} (<math>({{character.wisdom}}-10)/2</math>)</div>
+          <div id="wis" class="stat" contenteditable="true">{{character.wisdom}}</div>
         </div>
         <div>
           <label for="cha"><strong>CHA</strong></label>
-          <div id="cha" class="stat" contenteditable="true">{{character.charisma}} (<math>({{character.charisma}}-10)/2</math>)</div>
+          <div id="cha" class="stat" contenteditable="true">{{character.charisma}}</div>
         </div>
       </div> 
     </div>
@@ -169,10 +171,11 @@
             </tr>
           </thead>
           <tbody class="table-group-divider" id="weapondiv">
-            {{#each character.weapon as |weapons|}}
-            <tr id="{{weapons.dataValues.id}}">
+            {{#each character.weapons as |weapons|}}
+            <tr id="{{weapons.dataValues.id}}" class="weaponSlab">
             <th>{{weapons.dataValues.name}}</th>
             <td>{{weapons.dataValues.damage}}</td>
+            <td id="delBnt" class="bi bi-trash border border-white border-1" type="button" onClick="deleteItem();">delete</td>
             </tr>
             {{/each}}
           </tbody>
@@ -195,10 +198,11 @@
           </tr>
         </thead>
         <tbody class="table-group-divider" id="otherdiv">
-          {{#each character.other as |other|}}
-          <tr id="{{other.dataValues.id}}">
+          {{#each character.others as |other|}}
+          <tr id="{{other.dataValues.id}}" class="otherSlab">
             <th>{{other.dataValues.name}}</th>
             <td>{{other.dataValues.description}}</td>
+            <td id="delBnt" class="bi bi-trash border border-white border-1">delete</td>
             </tr>
           {{/each}}
         </tbody>
@@ -208,7 +212,6 @@
   </div>
 </div>
 <script src=".././js/character.js"></script>
-<script src=".././js/logout.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

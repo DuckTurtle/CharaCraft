@@ -8,9 +8,10 @@ const init = () => {
 };
 const timer = () => {
   setTimeout(async () => {
+    console.log("fire");
     await saveToDB();
     return true;
-  }, 5000);
+  }, 7000);
 }
 
 function genID() {
@@ -235,7 +236,7 @@ const saveOther = (e) => {
         'Content-Type': 'application/json',
       },
     });
-  })
+  });
 };
 
 
@@ -289,7 +290,8 @@ const saveToDB = async (e) => {
   JSON.stringify(currentWeapons);
   JSON.stringify(currentSpells);
   JSON.stringify(currentOther);
-  let charID = document.querySelector('#char_ID').textContent.trim();
+  let charID = document.querySelector("#char_ID").getAttribute('value').trim();
+  console.log(charID);
   let cname = document.querySelector("#character").textContent.trim();
   let campaignName = document.querySelector("#campaignName").textContent.trim();
   let cclass = document.querySelector("#class").textContent.trim();
@@ -323,7 +325,10 @@ const saveToDB = async (e) => {
     cwisdom &&
     ccharisma
   ) {
-    const response = await fetch(`/api/characters/newcharacter`, {
+    const gone = await fetch(`/api/characters/delChar/${charID}`, {
+      method: "DELETE",
+    });
+    const response = await fetch(`/api/characters/updatecharacter`, {
       method: "POST",
       body: JSON.stringify({
         charID,
@@ -352,7 +357,7 @@ const saveToDB = async (e) => {
     });
     if (response.ok) {
       console.log("Character saved");
-      document.location.replace(`/character/${cid}`)
+      document.location.replace(`/character/${charID}`)
     } else {
       alert("Failed to Save Character");
     }
