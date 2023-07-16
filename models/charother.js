@@ -21,7 +21,7 @@ CharOther.init(
       }
     },
     other_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       references: {
         model: 'other',
         key: 'id',

@@ -6,22 +6,16 @@ const {
   CharOther,
 } = require("../../models");
 //updates older character data
-router.post("/character", async (req, res) => {
+router.post("/updatecharacter", async (req, res) => {
   try {
-    //deletes old character data to avoid mutaion
-    await Characters.destroy({
-      where: {
-        id: req.params.charID,
-      },
-    });
+    console.log(req.body);
     //updated the information
-    const newCharacterData = await Characters.create({
-      where: {
-        id: req.params.charID,
+    const newchare = await Characters.create({
+        id: req.body.charID,
         name: req.body.cname,
         campaign_name: req.body.campaignName,
         class: req.body.cclass,
-        level: req.body.clevel,
+        level: req.body.cLevel,
         race: req.body.crace,
         hp: req.body.hb,
         armor_class: req.body.armorClass,
@@ -37,7 +31,7 @@ router.post("/character", async (req, res) => {
         weaponName: req.body.currentWeapons,
         otherId: req.body.currentOther,
         user_id: req.session.user_id,
-      },
+      
     }).then(character => {
       //links spells to charater
       if (req.body.currentSpells.length) {
@@ -47,9 +41,8 @@ router.post("/character", async (req, res) => {
             spell_id,
           };
         });
-        return Charspell.bulkCreate(charSpellIdArr);
+         Charspell.bulkCreate(charSpellIdArr);
       }
-      res.status(200).json(character);
       //links weapons to charater
       if (req.body.currentWeapons.length) {
         const charWeaponIdArr = req.body.currentWeapons.map((weapon_id) => {
@@ -58,23 +51,20 @@ router.post("/character", async (req, res) => {
             weapon_id,
           };
         });
-        return CharWeapon.bulkCreate(charWeaponIdArr);
+         CharWeapon.bulkCreate(charWeaponIdArr);
       }
-      res.status(200).json(character);
       // links other to character
       if (req.body.currentOther.length) {
-        const charOtherIdArr = req.body.currentOther.map((other_Id) => {
+        const charOtherIdArr = req.body.currentOther.map((other_id) => {
           return {
             character_id: character.id,
-            other_Id,
+            other_id,
           };
         });
-        return CharOther.bulkCreate(charOtherIdArr);
+         CharOther.bulkCreate(charOtherIdArr);
       }
-      res.status(200).json(character);
     })
     .then((charOtherIdArr) => res.status(200).json(charOtherIdArr))
-      res.status(200).json(newCharacterData);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -90,7 +80,7 @@ router.post("/newcharacter", async (req, res) => {
       name: req.body.cname,
       campaign_name: req.body.campaignName,
       class: req.body.cclass,
-      level: req.body.clevel,
+      level: req.body.cLevel,
       race: req.body.crace,
       hp: req.body.chp,
       armor_class: req.body.armorClass,
@@ -115,7 +105,7 @@ router.post("/newcharacter", async (req, res) => {
           spell_id,
         };
       });
-      return Charspell.bulkCreate(charSpellIdArr);
+       Charspell.bulkCreate(charSpellIdArr);
     }
   
   
@@ -127,22 +117,22 @@ router.post("/newcharacter", async (req, res) => {
           weapon_id,
         };
       });
-      return CharWeapon.bulkCreate(charWeaponIdArr);
+       CharWeapon.bulkCreate(charWeaponIdArr);
     }
     // links other to character
     if (req.body.currentOther.length) {
-      const charOtherIdArr = req.body.currentOther.map((other_Id) => {
+      console.log(req.body.currentOther)
+      const charOtherIdArr = req.body.currentOther.map((other_id) => {
         return {
           character_id: character.id,
-          other_Id,
+          other_id,
         };
       });
-      return CharOther.bulkCreate(charOtherIdArr);
+       CharOther.bulkCreate(charOtherIdArr);
     }
-    res.status(200).json(character);
+    
   })
   .then((charOtherIdArr) => res.status(200).json(charOtherIdArr))
-    res.status(200);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

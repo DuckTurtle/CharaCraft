@@ -24,7 +24,7 @@ Characters.init(
     level: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "10",
+      defaultValue: "1",
     },
     race: {
       type: DataTypes.STRING,
