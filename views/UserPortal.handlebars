@@ -4,18 +4,19 @@
     <div class = "CharacterGrid">
         <div class ="row justify-content-center pt-4">
             {{#each character as |characters|}}
-            <div class="col-md-3 CharacterBlock" id="CharacterBlock" >
-                <div class ="col p-2 text-black bg-light mb-4">
+            <div class="col-md-3 CharacterBlock card cardEdit border border-dark-subtle border-5" id="CharacterBlock" >
+                <div class ="col p-2 text-black bg-light mb-4 text-center">
                     <h2>{{characters.name}}</h2>
                     <p><strong>Campaign Name:</strong> {{characters.campaign_name}}</p>
                     <p><strong>Class:</strong> {{characters.class}}</p>
                     <p><strong>Level:</strong> {{characters.level}}</p>
                     <p><strong>Race:</strong> {{characters.race}}</p>
-                    <button class="btn btn-primay" onclick="document.location.replace(`/character/{{characters.id}}`)">Select</button>
-                    <button class="btn pl-2 btn-alert" id="deleteButtons" data-id="{{characters.id}}" >Delete Character</button>
+                    <button class="btn btn-primay btn-outline-warning" onclick="document.location.replace(`/character/{{characters.id}}`)">Select</button>
+                    <button class="btn pl-2 btn-alert btn-outline-warning" id="deleteButtons" data-id="{{characters.id}}" >Delete Character</button>
                 </div>
             </div>
             {{/each}}
+
         </div>
     </div>
         

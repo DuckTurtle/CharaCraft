@@ -5,7 +5,6 @@ const {
   Charspell,
   CharOther,
 } = require("../../models");
-const checkAuth = require("../../utils/auth");
 //updates older character data
 router.post("/character", async (req, res) => {
   try {
@@ -108,7 +107,6 @@ router.post("/newcharacter", async (req, res) => {
   try {
     console.log(req.body);
     const newCharacterData = await Characters.create({
-      defaults: {
       id: req.body.cid,
       name: req.body.cname,
       campaign_name: req.body.campaignName,
@@ -129,7 +127,6 @@ router.post("/newcharacter", async (req, res) => {
       weaponName: req.body.currentWeapons,
       otherId: req.body.currentOther,
       user_id: req.session.user_id,
-      }
     }).then(character => {
     //links spells to charater
     if (req.body.currentSpells.length) {
@@ -141,7 +138,8 @@ router.post("/newcharacter", async (req, res) => {
       });
       return Charspell.bulkCreate(charSpellIdArr);
     }
-    res.status(200).json(character);
+  
+  
     //links weapons to charater
     if (req.body.currentWeapons.length) {
       const charWeaponIdArr = req.body.currentWeapons.map((weapon_id) => {
@@ -152,7 +150,6 @@ router.post("/newcharacter", async (req, res) => {
       });
       return CharWeapon.bulkCreate(charWeaponIdArr);
     }
-    res.status(200).json(character);
     // links other to character
     if (req.body.currentOther.length) {
       const charOtherIdArr = req.body.currentOther.map((other_Id) => {
@@ -161,7 +158,7 @@ router.post("/newcharacter", async (req, res) => {
           other_Id,
         };
       });
-      return Charspell.bulkCreate(charOtherIdArr);
+      return CharOther.bulkCreate(charOtherIdArr);
     }
     res.status(200).json(character);
   })
@@ -172,11 +169,13 @@ router.post("/newcharacter", async (req, res) => {
     res.status(500).json(err);
   }
 });
-router.delete('/:id', checkAuth, async (req, res) => {
+
+
+router.delete('/delChar/:id', async (req, res) => {
   console.log({id: req.params.id,
     user_id: req.session.user_id,})
   try {
-    const characterData = await Characters.destroy({
+    const goneData = await Characters.destroy({
       where: {
         id: req.params.id,
         user_id: req.session.user_id,

@@ -1,3 +1,4 @@
+
 const weaponBlock = document.getElementById('weapondiv');
 const spellBlock = document.getElementById('spelldiv');
 const otherBlock = document.getElementById('otherdiv');
@@ -117,13 +118,13 @@ const createWeaponBlock = async (event) => {
   //on hover function that displays damage info
   div.append(title);
   div.append(discription);
-  const delBtnEl = document.createElement('i');
+  const delBtnEl = document.createElement('td');
   //adds delete button.
+  delBtnEl.innerHTML = "delete"
   delBtnEl.setAttribute("id", "delBnt");
-  delBtnEl.setAttribute('class', 'bi bi-trash');
+  delBtnEl.setAttribute('class', 'bi bi-trash border border-white border-1');
   delBtnEl.addEventListener('click', deleteItem);
-  title.append(delBtnEl);
-  title.append(delBtnEl);
+  div.append(delBtnEl);
   weaponBlock.append(div);
 };
 
@@ -147,12 +148,13 @@ const createSpellBlock = async (e) => {
   div.append(title);
   div.append(discription);
   //adds delete button.
-  const delBtnEl = document.createElement('i');
+  const delBtnEl = document.createElement('td');
   //adds delete button.
+  delBtnEl.innerHTML = "delete"
   delBtnEl.setAttribute("id", "delBnt");
-  delBtnEl.setAttribute('class', 'bi bi-trash');
+  delBtnEl.setAttribute('class', 'bi bi-trash border border-white border-1');
   delBtnEl.addEventListener('click', deleteItem);
-  title.append(delBtnEl);
+  div.append(delBtnEl);
   spellBlock.append(div);
 };
 //creats new other block.
@@ -174,10 +176,11 @@ const createOtherBlock = async (e) => {
   div.append(title);
   div.append(discription);
   //adds delete button.
-  const delBtnEl = document.createElement('i');
+  const delBtnEl = document.createElement('td');
   //adds delete button.
+  delBtnEl.innerHTML = "delete"
   delBtnEl.setAttribute("id", "delBnt");
-  delBtnEl.setAttribute('class', 'bi bi-trash');
+  delBtnEl.setAttribute('class', 'bi bi-trash border border-white border-1');
   delBtnEl.addEventListener('click', deleteItem);
   div.append(delBtnEl);
   otherBlock.append(div);
@@ -294,9 +297,7 @@ const saveToDB = async (e) => {
   let crace = document.querySelector("#race").textContent.trim();
   let chp = document.querySelector("#hitpoints.statWidth").value.trim();
   let armorClass = document.querySelector("#armor.statWidth").value.trim();
-  let cinitiative = document
-    .querySelector("#initiative.statWidth")
-    .value.trim();
+  let cinitiative = document.querySelector("#initiative.statWidth").value.trim();
   let cspeed = document.querySelector("#speed.statWidth").value.trim();
   let cstrength = document.querySelector("#str").textContent.trim();
   let cdexterity = document.querySelector("#dex").textContent.trim();
@@ -383,3 +384,6 @@ document
   .getElementById('saveCharacterBtn')
   .addEventListener('click', saveCharacter);
 
+
+
+ 
