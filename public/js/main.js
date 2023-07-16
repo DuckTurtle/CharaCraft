@@ -106,9 +106,12 @@ const createWeaponBlock = async (event) => {
   title.setAttribute('scope', "row");
   var discription = document.createElement('td');
   //discription.setAttribute("class","hoverinfo");
-  if (num >= "37") {
+  if (num >= 37) {
     discription.textContent = `${itemInfo.desc[1]} ${itemInfo.desc[2]}`;
-  } else {
+  } else if (num == 36){
+    discription.textContent = `${itemInfo.special[0]}`;
+  }
+  else {
     discription.textContent = itemInfo.damage.damage_dice;
   }
   //on hover function that displays damage info
